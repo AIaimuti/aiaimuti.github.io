@@ -20,7 +20,7 @@ title: Life is a dangerous cajon, only a brave man can pass.  # 你的博客名�
 SEOTitle:  # 这个是显示在浏览器Tab上的标题，如未指定该配置参数，系统会默认显示上面的title
 header-img: img/home-bg_meswx.jpg # 这个定义了博客首页的顶部背景图，可以根据自己的喜好，设置不同的图
 email: 545009377@qq.com # 你的邮箱，如：84787843@qq.com，右边头像栏底下显示
-description: "Your feature, your way. | Android Developer, Software Engineer | 这里是 @Meswx祥仔 的个人博客，互联网发声专属领地。" # 你的博客描述，这个内容不会显示在博客界面上，可以随便写点
+description: "Your feature, your way. " # 你的博客描述，这个内容不会显示在博客界面上，可以随便写点
 keyword: "Python, C++, NLP, Deeplearning" # 这里填博客的索引关键字，最好是英文，如：iPhone，多个关键字使用英文状态下的逗号隔开 
 url: "http://aiaimuti.github.io" # 这里填我们GitHub账号的仓库（repo）名称，如：http://xxx.github.io
 baseurl: "" # 可忽略，官方解释：for example, '/blog' if your blog hosted on 'host/blog'
@@ -37,12 +37,12 @@ sidebar-avatar: /img/avatar-meswx.jpg # 你的头像图片的地址
 
 RSS: false  # 是否启用RSS订阅
 
-#weibo_username:     meswx      # 签名加了"#"号就表示，注释掉了，不设置微博账号
+weibo_username:          # 签名加了"#"号就表示，注释掉了，不设置微博账号
 github_username:    aiaimuti      # GitHub
 zhihu_username:     luo-gu-54      # 知乎，找到个人知乎主页，
-# facebook_username:  meswx      # Facebook
+facebook_username:        # Facebook
 #jianshu_username:   f9133bd04508  # 简书，https://www.jianshu.com/u/f9133bd04508，简书链接前面固定部分已经代码中写好，你只需要把你的id填到这
-#twitter_username:   mieswx    # Twitter
+twitter_username:       # Twitter
 
 # 想加更多社交账号的只能看代码了，一般来说上面都够用了，如有需要，请联系我：meswx@outlook.com
 

@@ -16,7 +16,7 @@
 
 # ---- 1、基本配置
 
-title: Life is a dangerous cajon, only a brave man can pass.  # 你的博客名称，如：唐太宗的博客，以下配置如无特别说明，英文中文都OK
+title: Be hungry, Be foolish # 你的博客名称，如：唐太宗的博客，以下配置如无特别说明，英文中文都OK
 SEOTitle:  # 这个是显示在浏览器Tab上的标题，如未指定该配置参数，系统会默认显示上面的title
 header-img: img/home-bg_meswx.jpg # 这个定义了博客首页的顶部背景图，可以根据自己的喜好，设置不同的图
 email: 545009377@qq.com # 你的邮箱，如：84787843@qq.com，右边头像栏底下显示

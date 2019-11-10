@@ -24,7 +24,7 @@ description: "Your feature, your way. " # 你的博客描述，这个内容不�
 keyword: "Python, C++, NLP, Deeplearning" # 这里填博客的索引关键字，最好是英文，如：iPhone，多个关键字使用英文状态下的逗号隔开 
 url: "http://aiaimuti.github.io" # 这里填我们GitHub账号的仓库（repo）名称，如：http://xxx.github.io
 baseurl: "" # 可忽略，官方解释：for example, '/blog' if your blog hosted on 'host/blog'
-github_repo: "https://github.com/AIaimuti/aiaimuti.github.io.git" 
+github_repo: "https://github.com/aiaimuti/aiaimuti.github.io.git" 
 # 你的GitHub仓库全名称（you code repository）,注意结尾要加上.git，如：https://github.com/zhangsan/zhangsan.github.io.git
 
 # ---- 2、侧边栏配置（Sidebar settings）
@@ -39,7 +39,7 @@ RSS: false  # 是否启用RSS订阅
 
 #weibo_username:          # 签名加了"#"号就表示，注释掉了，不设置微博账号
 github_username:    aiaimuti      # GitHub
-#zhihu_username:     luo-gu-54      # 知乎，找到个人知乎主页，
+zhihu_username:     luo-gu-54      # 知乎，找到个人知乎主页，
 #facebook_username:        # Facebook
 #jianshu_username:   f9133bd04508  # 简书，https://www.jianshu.com/u/f9133bd04508，简书链接前面固定部分已经代码中写好，你只需要把你的id填到这
 #twitter_username:       # Twitter

@@ -29,7 +29,7 @@ github_repo: "https://github.com/AIaimuti/aiaimuti.github.io.git"
 
 # ---- 2、侧边栏配置（Sidebar settings）
 
-sidebar: False # 是否使用侧边栏（头像，简介...），看个人喜好吧，我这里启用
+sidebar: false # 是否使用侧边栏（头像，简介...），看个人喜好吧，我这里启用
 sidebar-about-description: "人生有味是清欢，概莫如是" # 你的简介，如果上面设置false，这里可不填
 sidebar-avatar: /img/avatar-meswx.jpg # 你的头像图片的地址
 

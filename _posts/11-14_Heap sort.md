@@ -54,11 +54,11 @@ tags:
 
 ![](https://img-blog.csdn.net/20180801223317483?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTA0NTIzODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 
-主要思路：第一次保证0~0位置大根堆结构（废话），第二次保证0~1位置大根堆结构，第三次保证0~2位置大根堆结构...直到保证0~n-1位置大根堆结构
+主要思路：第一次保证0 ~ 0位置大根堆结构（废话），第二次保证0 ~ 1位置大根堆结构，第三次保证0 ~ 2位置大根堆结构...直到保证0 ~ n-1位置大根堆结构
 
 方法：每次新插入的数据都与其父结点进行比较，如果插入的数比父结点大，则与父结点交换，否则一直向上交换，直到小于等于父结点，或者来到了顶端（寻找父节点采用索引，父结点索引：(i-1)/2）
 
-插入6的时候，6大于他的父结点3，即arr(1)>arr(0)，则交换；此时，保证了0~1位置是大根堆结构，如下图：
+插入6的时候，6大于他的父结点3，即arr(1)>arr(0)，则交换；此时，保证了0 ~ 1位置是大根堆结构，如下图：
 
 ![](https://img-blog.csdn.net/20180801230208709?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTA0NTIzODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 
@@ -190,3 +190,80 @@ java代码如下：
     }
 ```
 
+C++ 代码如下：
+（其实java的代码已经写的很去语言化了，这部分就是把细微的差异变一下）
+```
+////构造大根堆（通过新插入的数上升）
+void heapSort(int[] arr) {
+        //构造大根堆
+        heapInsert(arr);
+        int size = sizeof(arr) / sizeof(int);
+        while (size > 1) {
+            //固定最大值
+            swap(arr, 0, size - 1);
+            size--;
+            //构造大根堆
+            heapify(arr, 0, size);
+ 
+        }
+ 
+    }
+
+void heapInsert(int arr[]){
+    int length = sizeof(arr) / sizeof(int);
+    for (int i = 0; i < length; i++) {
+        //当前插入的索引
+        int currentIndex = i;
+        //父结点索引
+        int fatherIndex = (currentIndex - 1) / 2;
+        //如果当前插入的值大于其父结点的值,则交换值，并且将索引指向父结点
+        //然后继续和上面的父结点值比较，直到不大于父结点，则退出循环
+        while (arr[currentIndex] > arr[fatherIndex]) {
+            //交换当前结点与父结点的值
+            swap(arr, currentIndex, fatherIndex);
+            //将当前索引指向父索引
+            currentIndex = fatherIndex;
+            //重新计算当前索引的父索引
+            fatherIndex = (currentIndex - 1) / 2;
+        }
+    }
+}
+
+void heapify(int[] arr, int index, int size) {
+        int left = 2 * index + 1;
+        int right = 2 * index + 2;
+        while (left < size) {
+            int largestIndex;
+            //判断孩子中较大的值的索引（要确保右孩子在size范围之内）
+            if (arr[left] < arr[right] && right < size) {
+                largestIndex = right;
+            } 
+            else { //两种情况：没有右孩子和左孩子大于右孩子
+                largestIndex = left;
+            }
+            //比较父结点的值与孩子中较大的值，并确定最大值的索引
+            if (arr[index] > arr[largestIndex]) {
+                largestIndex = index;
+            }
+            //如果父结点索引是最大值的索引，那已经是大根堆了，则退出循环
+            if (index == largestIndex) {
+                break;
+            }
+            //父结点不是最大值，与孩子中较大的值交换
+            swap(arr, largestIndex, index);
+            //将索引指向孩子中较大的值的索引
+            index = largestIndex;
+            //重新计算交换之后的孩子的索引
+            left = 2 * index + 1;
+            right = 2 * index + 2;
+        }
+ 
+    }
+void Swap(int arr[], int i, int j)
+{
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+
+ 

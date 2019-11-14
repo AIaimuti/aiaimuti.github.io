@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      C++类
+title:      C++类与C++11
 subtitle:   基础内容
 date:       2019-11-11
 author:     AIaimuti

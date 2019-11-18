@@ -138,7 +138,7 @@ public static void quickSort(int[] arr, int L, int R) {
         arr[j] = temp;
     }
 ```
-C++ 代码(C++中有swap函数就直接使用了)
+C++ 代码(C++中有swap函数就直接使用了) 
 
 ```
 void QuickSort(vector<int>& nums,int L,int R,int n){

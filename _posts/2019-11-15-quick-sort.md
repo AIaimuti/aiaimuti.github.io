@@ -138,48 +138,35 @@ public static void quickSort(int[] arr, int L, int R) {
         arr[j] = temp;
     }
 ```
-C++ 代码
+C++ 代码(C++中有swap函数就直接使用了)
 
 ```
-void quickSort(int arr[], int L, int R) {
-    if (L < R) {
-        //生成一个随机数
-         //在L至R位置随机选取一个数与最右边的数交换
-        int random = rand() % (R - L + 1);
-        Quick_swap(arr, L + random, R);
-         //此数组长度永远为2,p[0]为等于区的左边界，p[1]为等于区的右边界
-        int p[2] = {partition(arr, L, R)};
-         //将分出来的小于区重复上面的动作
-        quickSort(arr, L, p[0] - 1);
-         //将分出来的大于区重复上面的动作
-        quickSort(arr, p[1] + 1, R);
-    }
-}
- 
-int partition(int arr[], int L, int R) {
-    //声明一个小于区的索引
-    int less = L - 1;
-    //声明一个大于区的索引
-    int more = R;
-    //声明一个起始索引指针
-    int index = L;
-    while (index < more) {
-        if (arr[index] < arr[R]) {
-            Quick_swap(arr, index++, ++less);
-        } else if (arr[index] == arr[R]) {
-            index++;
-        } else {
-            Quick_swap(arr, index, --more);
+void QuickSort(vector<int>& nums,int L,int R,int n){
+        if(L<R) {
+            int random = rand() % (R - L + 1);
+            swap(nums[L + random], nums[R]);
+            vector<int> p = partition(nums,L,R);
+            QuickSort(nums,L,p[0]-1,n);
+            QuickSort(nums,p[1]+1,R,n);
         }
     }
-    Quick_swap(arr, more, R);
-    return less + 1, more;
-}
- 
-    //将数组中索引i和j的数进行交换
-void Quick_swap(int arr[], int i, int j) {
-    int temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
+vector<int> partition(vector<int>& arr,int L,int R){
+    int less = L - 1;
+    int more = R;
+    int index = L;
+    while (index < R){
+        if (arr[index] < arr[R]){
+            swap(arr[index++], arr[++less]);
+        }
+        else if (arr[index] == arr[R]){
+            index++;
+        }
+        else{
+            swap(arr[index++], arr[--more]);
+        }
+    }
+    swap(arr[more], arr[R]);
+    vector <int> a = {less+1, more};
+    return a;
 }
 ```

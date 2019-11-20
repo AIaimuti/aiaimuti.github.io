@@ -83,6 +83,45 @@ public:
     }
 };
 ```
++ 使用快慢指针原地修改链表,额外空间复杂度O（1）
+
+```
+using namespace std;
+class PalindromeList {
+public:
+    bool chkPalindrome(ListNode* head) {
+        if (head == NULL || head->next == NULL) {
+            return true;
+        }
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while (fast->next != NULL && fast->next->next != NULL) {
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        slow = reverseList(slow->next);
+        while (slow != NULL) {
+            if (head->val != slow->val) {
+                return false;
+            }
+            head = head->next;
+            slow = slow->next;
+        }
+        return true;
+    }
+    ListNode* reverseList(ListNode* head) {
+        ListNode* pre = NULL;
+        ListNode* here = head;
+        while (here!=NULL) {
+            ListNode* temp = here->next;
+            here->next = pre;
+            pre = here;
+            here = temp;
+        }
+        return pre;
+    }
+};
+```
 
 
 

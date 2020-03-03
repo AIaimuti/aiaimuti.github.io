@@ -1,13 +1,13 @@
 # Site settings
-title: Blog.
-SEOTitle: "Blog."
+title: Blog
+SEOTitle: "Be hungry, Be foolish"
 header-img: img/home-bg_meswx.jpg
 email: engineer_yang@foxmail.com
 description: "My Blog"
 keyword: "C++, python, Deeplearning"
 url: "http://aiaimuti.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
-github_repo: "https://github.com/AIaimuti/aiaimuti.github.io.git" # you code repository
+github_repo: "https://github.com/AIaimuti/aiaimuti.github.io" # you code repository
 
 # Sidebar settings
 # sidebar: false                          # whether or not using Sidebar.

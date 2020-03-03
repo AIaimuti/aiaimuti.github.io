@@ -39,7 +39,7 @@ layout: default
                     <h5><a href="{{'/tags/' | prepend: site.baseurl }}">FEATURED TAGS</a></h5>
                     <div class="tags">
         				{% for tag in site.tags %}
-                            {% if tag[1].size > site.featured-condition-size %}
+                            {% if tag[1].size > {{site.featured-condition-size}} %}
                 				<a href="{{ site.baseurl }}/tags/#{{ tag[0] }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">
                                     {{ tag[0] }}
                                 </a>
@@ -55,7 +55,7 @@ layout: default
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     {% for friend in site.friends %}
-                        <li><a target="_blank" href="{{friend.href}}">{{friend.title}}</a></li>
+                        <li><a href="{{friend.href}}">{{friend.title}}</a></li>
                     {% endfor %}
                 </ul>
                 {% endif %}
@@ -88,7 +88,7 @@ layout: default
                     <h5><a href="{{'/tags/' | prepend: site.baseurl }}">FEATURED TAGS</a></h5>
                     <div class="tags">
                         {% for tag in site.tags %}
-                            {% if tag[1].size > site.featured-condition-size %}
+                            {% if tag[1].size > {{site.featured-condition-size}} %}
                                 <a href="{{ site.baseurl }}/tags/#{{ tag[0] }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">
                                     {{ tag[0] }}
                                 </a>
@@ -114,7 +114,7 @@ layout: default
                         <ul class="list-inline">
                             {% if site.RSS %}
                             <li>
-                                <a target="_blank" href="{{ '/feed.xml' | prepend: site.baseurl }}">
+                                <a href="{{ "/feed.xml" | prepend: site.baseurl }}">
                                     <span class="fa-stack fa-lg">
                                         <i class="fa fa-circle fa-stack-2x"></i>
                                         <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
@@ -122,6 +122,7 @@ layout: default
                                 </a>
                             </li>
                             {% endif %}
+                            <!-- add jianshu add target = "_blank" to <a> by BY -->
                             {% if site.jianshu_username %}
                             <li>
                                 <a target="_blank" href="https://www.jianshu.com/u/{{ site.jianshu_username }}">
@@ -134,7 +135,7 @@ layout: default
                             {% endif %}
                             {% if site.twitter_username %}
                             <li>
-                                <a target="_blank" href="https://twitter.com/{{ site.twitter_username }}">
+                                <a href="https://twitter.com/{{ site.twitter_username }}">
                                     <span class="fa-stack fa-lg">
                                         <i class="fa fa-circle fa-stack-2x"></i>
                                         <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
@@ -172,9 +173,20 @@ layout: default
                                 </a>
                             </li>
                             {% endif %}
+                            {% if site.github_username %}
+                            <li>
+                                <a target="_blank" href="https://github.com/{{ site.github_username }}">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            {% endif %}
+                            
                         </ul>
                         {% if site.email %}
-                            <p>✍️📨 {{site.email}}</p>
+                            <p>✉️ {{site.email}}</p>
                         {% endif %}
                     </div>
                 </section>
@@ -184,7 +196,7 @@ layout: default
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     {% for friend in site.friends %}
-                        <li><a target="_blank" href="{{friend.href}}">{{friend.title}}</a></li>
+                        <li><a href="{{friend.href}}">{{friend.title}}</a></li>
                     {% endfor %}
                 </ul>
                 {% endif %}

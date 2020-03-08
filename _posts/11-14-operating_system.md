@@ -7,7 +7,6 @@ author:     AIaimuti
 header-img: img/post-bg-open-source-blog.jpg
 catalog: true
 tags:
-    - 操作系统
     - C++
 ---
 

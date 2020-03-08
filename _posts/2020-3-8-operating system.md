@@ -1,3 +1,14 @@
+---
+layout:     post
+title:      操作系统
+subtitle:   基础内容
+date:       2019-11-11
+author:     AIaimuti
+header-img: img/post-bg-open-source-blog.jpg
+catalog: true
+tags:
+    - C++
+---
 
 ## 进程与线程
 

@@ -96,7 +96,7 @@ def coinChange(coins: List[int], amount: int):
 $$
 f(n)
 \begin{cases}
-\cfrac n2, &if\ n\ is\ even\\
+\, &if\ n=0\\
 3n + 1, &if\  n\ is\ odd
 \end{cases}
 $$

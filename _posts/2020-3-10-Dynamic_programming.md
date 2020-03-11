@@ -87,23 +87,15 @@ def coinChange(coins: List[int], amount: int):
 ```
 以上算法已经是暴力解法了，以上代码的数学形式就是状态转移方程：
 
-
 $$
 f(n)
 \begin{cases}
 0, &n = 0 \\
 -1, & n < 0 \\
-min(dp(n - coins) + 1| coin \in coins), & n > 0
+min(dp(n - coins) + 1| coin \in coins), & n > 0 \\
 \end{cases}
 $$
 
-$$
-\begin{cases}
-a_1x+b_1y+c_1z=d_1\\
-a_2x+b_2y+c_2z=d_2\\
-a_3x+b_3y+c_3z=d_3\\
-\end{cases}
-$$
 
 
 本文参考内容

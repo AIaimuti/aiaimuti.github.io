@@ -10,11 +10,6 @@ tags:
     - 数据结构及算法
 ---
 
-本文参考内容
-https://leetcode-cn.com/problems/coin-change/solution/dong-tai-gui-hua-tao-lu-xiang-jie-by-wei-lai-bu-ke/
-https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/solution/gu-piao-wen-ti-python3-c-by-z1m/
-https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/solution/yi-ge-fang-fa-tuan-mie-6-dao-gu-piao-wen-ti-by-l-3/
-
 ## 动态规划问题概述
 
 动态规划问题的一般形式就是求最值，求最值最直观的方法是穷举，动态规划核心问题是穷举，然后在其中找最值。动态规划问题有三个要素：
@@ -98,7 +93,14 @@ f(n)
 \begin{cases}
 0, & \text{n = 0}  \\
 -1, & \text{n < 0}  \\
-min{dp(n - coins) + 1| coin \in coins}, & \text{n > 0}  \\
+min(dp(n - coins) + 1| coin \in coins), & \text{n > 0}  
 \end{cases}
 $$
+
+
+本文参考内容
+https://leetcode-cn.com/problems/coin-change/solution/dong-tai-gui-hua-tao-lu-xiang-jie-by-wei-lai-bu-ke/
+https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/solution/gu-piao-wen-ti-python3-c-by-z1m/
+https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/solution/yi-ge-fang-fa-tuan-mie-6-dao-gu-piao-wen-ti-by-l-3/
+
 

@@ -7,8 +7,9 @@ author:     AIaimuti
 header-img: img/post-bg-open-source-blog.jpg
 catalog: true
 tags:
-    - C++
+    - 数据结构及算法
 ---
+
 ## 动态规划问题概述
 
 动态规划问题的一般形式就是求最值，求最值最直观的方法是穷举，动态规划核心问题是穷举，然后在其中找最值。动态规划问题有三个三要素：

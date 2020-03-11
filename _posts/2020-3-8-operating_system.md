@@ -7,7 +7,7 @@ author:     AIaimuti
 header-img: img/post-bg-open-source-blog.jpg
 catalog: true
 tags:
-    - C++
+    - 操作系统
 ---
 
 ## 进程与线程

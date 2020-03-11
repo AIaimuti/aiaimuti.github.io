@@ -91,12 +91,20 @@ def coinChange(coins: List[int], amount: int):
 $$
 f(n)
 \begin{cases}
-0, & text{n = 0} \\
--1, & text{n < 0} \\
+0, & \text{n = 0} \\
+-1, & \text{n < 0} \\
 min(dp(n - coins) + 1| coin \in coins), & text{n > 0}  
 \end{cases}
 $$
 
+$$
+f(n)
+\begin{cases}
+\cfrac n2, &if\ n\ is\ even\\
+\cfrac n2, &if\ n\ is\ even\\
+3n + 1, &if\  n\ is\ odd
+\end{cases}
+$$
 
 本文参考内容
 https://leetcode-cn.com/problems/coin-change/solution/dong-tai-gui-hua-tao-lu-xiang-jie-by-wei-lai-bu-ke/

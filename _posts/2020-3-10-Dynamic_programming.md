@@ -91,9 +91,17 @@ def coinChange(coins: List[int], amount: int):
 $$
 f(n)
 \begin{cases}
-0, & \text{n = 0}\\
--1, & \text{n < 0}\\
-min(dp(n - coins) + 1| coin \in coins), & text{n > 0}
+0, &n = 0 \\
+-1, & n < 0 \\
+min(dp(n - coins) + 1| coin \in coins), & n > 0
+\end{cases}
+$$
+
+$$
+\begin{cases}
+a_1x+b_1y+c_1z=d_1\\
+a_2x+b_2y+c_2z=d_2\\
+a_3x+b_3y+c_3z=d_3\\
 \end{cases}
 $$
 

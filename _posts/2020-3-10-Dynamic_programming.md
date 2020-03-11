@@ -85,18 +85,62 @@ def coinChange(coins: List[int], amount: int):
     # 我们要求的问题是 dp(amount)
     return dp(amount)
 ```
-以上算法已经是暴力解法了，以上代码的数学形式就是状态转移方程：
+以上算法已经是暴力解法了，以上代码的数学形式就是状态转移方程,状态转移方程如下所示：
 
-$$
-f(n)
-\begin{cases}
-0, n = 0 \\
--1, n < 0 \\
-min(dp(n - coins) + 1| coin \in coins), n > 0 \\
-\end{cases}
-$$
+<a href="https://www.codecogs.com/eqnedit.php?latex=f(n)&space;\begin{cases}&space;0,&space;&&space;n&space;=&space;0&space;\\&space;-1,&space;&&space;n&space;<&space;0&space;\\&space;min(dp(n&space;-&space;coins)&space;&plus;&space;1|&space;coin&space;\in&space;coins),&space;&&space;n&space;>&space;0&space;\\&space;\end{cases}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?f(n)&space;\begin{cases}&space;0,&space;&&space;n&space;=&space;0&space;\\&space;-1,&space;&&space;n&space;<&space;0&space;\\&space;min(dp(n&space;-&space;coins)&space;&plus;&space;1|&space;coin&space;\in&space;coins),&space;&&space;n&space;>&space;0&space;\\&space;\end{cases}" title="f(n) \begin{cases} 0, & n = 0 \\ -1, & n < 0 \\ min(dp(n - coins) + 1| coin \in coins), & n > 0 \\ \end{cases}" /></a>
 
+但是上述算法进行了很多重复性计算的操作，每个子问题中含有一个for循环，复杂度为 O(k)。所以总时间复杂度为 O(n^k)，指数级别。
 
+2. 带备忘录的递归
+
+这些重复性操作可以通过使用一个「备忘录」进行记录来优化：
+
+```
+def coinChange(coins: List[int], amount: int):
+    # 备忘录
+    memo = dict()
+    def dp(n):
+        # 查备忘录，避免重复计算
+        if n in memo: return memo[n]
+        if n == 0: return 0
+        if n < 0: return -1
+        res = float('INF')
+        for coin in coins:
+            subproblem = dp(n - coin)
+            if subproblem == -1: continue
+            res = min(res, 1 + subproblem)
+        # 记入备忘录
+        memo[n] = res if res != float('INF') else -1
+        return memo[n]
+    return dp(amount)
+```
+「备忘录」大大减小了子问题数目，消除了子问题的冗余，所以子问题总数不会超过金额数 n，即子问题数目为 O(n)。处理一个子问题的时间不变，仍是 O(k)，所以总的时间复杂度是 O(n)。
+
+3.dp 数组的迭代解法
+
+当然，我们也可以自底向上使用 dp table 来消除重叠子问题，dp 数组的定义和刚才 dp 函数类似，定义也是一样的：
+
+dp[i] = x 表示，当目标金额为 i 时，至少需要 x 枚硬币。
+
+```
+int coinChange(vector<int>& coins, int amount) {
+    // 数组大小为 amount + 1，初始值也为 amount + 1
+    vector<int> dp(amount + 1, amount + 1);
+    // base case
+    dp[0] = 0;
+    for (int i = 0; i < dp.size(); i++) {
+        // 内层 for 在求所有子问题 + 1 的最小值
+        for (int coin : coins) {
+            // 子问题无解，跳过
+            if (i - coin < 0) continue;
+            dp[i] = min(dp[i], 1 + dp[i - coin]);
+        }
+    }
+    return (dp[amount] == amount + 1) ? -1 : dp[amount];
+}
+
+```
+为什么将 dp 数组的所有元素都初始化为 amount + 1:这是由于 dp[amount] 最大不可能超过 amount（最小面值为 1 元），所以 amount + 1 就是一个无意义的数了。这个用例里面，也就是 dp[0]=dp[1]=dp[2]=dp[3]=4，而由于 dp[3]=4>amount，所以我们返回 -1
 
 本文参考内容
 https://leetcode-cn.com/problems/coin-change/solution/dong-tai-gui-hua-tao-lu-xiang-jie-by-wei-lai-bu-ke/

@@ -101,7 +101,6 @@ $$
 f(n)
 \begin{cases}
 \cfrac n2, &if\ n\ is\ even\\
-\cfrac n2, &if\ n\ is\ even\\
 3n + 1, &if\  n\ is\ odd
 \end{cases}
 $$

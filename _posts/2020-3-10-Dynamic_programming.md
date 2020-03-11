@@ -90,7 +90,9 @@ def coinChange(coins: List[int], amount: int):
 $$
 f(n)
 \begin{cases}
-0, &n = 0 \\ -1, & n < 0 \\ min(dp(n - coins) + 1| coin \in coins), &n > 0 \\
+0, n = 0 \\
+-1, n < 0 \\
+min(dp(n - coins) + 1| coin \in coins), n > 0 \\
 \end{cases}
 $$
 

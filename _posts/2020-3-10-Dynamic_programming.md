@@ -36,7 +36,7 @@ tags:
 
 ## 典型例子
 
-**凑零钱问题（Leetcode 322）**
+**<a href="https://leetcode-cn.com/problems/coin-change/">零钱兑换（Leetcode 322）</a>**
 
 先看下题目：给你 k 种面值的硬币，面值分别为 c1, c2 ... ck，每种硬币的数量无限，再给一个总金额 amount，问你最少需要几枚硬币凑出这个金额，如果不可能凑出，算法返回 -1 。算法的函数签名如下：
 
@@ -122,7 +122,7 @@ def coinChange(coins: List[int], amount: int):
 
 dp[i] = x 表示，当目标金额为 i 时，至少需要 x 枚硬币。
 
-```
+``` C++ 
 int coinChange(vector<int>& coins, int amount) {
     // 数组大小为 amount + 1，初始值也为 amount + 1
     vector<int> dp(amount + 1, amount + 1);
@@ -141,6 +141,48 @@ int coinChange(vector<int>& coins, int amount) {
 
 ```
 为什么将 dp 数组的所有元素都初始化为 amount + 1:这是由于 dp[amount] 最大不可能超过 amount（最小面值为 1 元），所以 amount + 1 就是一个无意义的数了。这个用例里面，也就是 dp[0]=dp[1]=dp[2]=dp[3]=4，而由于 dp[3]=4>amount，所以我们返回 -1
+
+**股票问题**
+
+**<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/">买卖股票的最佳时机 （Leetcode 121）</a>**
+
+**<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/">买卖股票的最佳时机II （Leetcode 122）</a>**
+
+**<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/">买卖股票的最佳时机III （Leetcode 123）</a>**
+
+**<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iv/">买卖股票的最佳时机IV （Leetcode 188）</a>**
+
+**<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/">最佳买卖股票时机含冷冻期 （Leetcode 309）</a>**
+
+**<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/">买卖股票的最佳时机含手续费 （Leetcode 714）</a>**
+
+首先，确认每天股票的「状态」和「选择」，即：
+```
+for 状态1 in 状态1的所有取值：
+    for 状态2 in 状态2的所有取值：
+        for ...
+            dp[状态1][状态2][...] = 择优(选择1，选择2...)
+```
+这个问题的「状态」有三个，第一个是**天数**，第二个是**允许交易的最大次数**，第三个是**当天的持有状态**。</br>
+
+其中，每天持有状态都有三种「选择」：买入、卖出、无操作，我们用 buy, sell, rest 表示这三种选择。</br>
+
+这三种选择相互之间有些耦合限制：
+1.sell 必须在 buy 之后，buy 必须在 sell 之后。
+2.rest 包含两种情况：1）一种是 buy 之后的 rest（持有了股票），一种是 sell 之后的 rest（没有持有股票），可以用 1 表示持有，0 表示没有持有。
+3.buy操作只能在交易次数 k > 0 的前提下操作。
+我们用一个三维数组就可以装下这几种状态的全部组合：
+```
+dp[i][k][0 or 1]
+0 <= i <= n-1, 1 <= k <= K
+n 为天数，大 K 为最多交易数
+此问题共 n × K × 2 种状态，全部穷举就能搞定。
+for 0 <= i < n:
+    for 1 <= k <= K:
+        for s in {0, 1}:
+            dp[i][k][s] = max(buy, sell, rest)
+```
+
 
 本文参考内容
 https://leetcode-cn.com/problems/coin-change/solution/dong-tai-gui-hua-tao-lu-xiang-jie-by-wei-lai-bu-ke/

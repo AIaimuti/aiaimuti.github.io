@@ -57,9 +57,11 @@ Far：远平面，摄像机能看到的最远的东西。
 隐藏与显示游戏物体：物体Inspector面板上“图标”右侧的复选框。<br>
 
 **1. 方向光：Directional Light，用于模拟太阳，模拟自然光。**<br>
+
 方向光任何地方都能照射到，就像太阳一样，但是要注意照射方向。
 
 **创建方向光：**<br>
+
 Hierarchy面板右键-->Light-->Directional Light
 
 **属性**

@@ -97,7 +97,8 @@ Hierarchy面板右键-->Light-->Point Light
 Hierarchy面板右键-->Light-->Spot Light
 
 **属性**<br>
-Spot Angle[聚光角]<br>
+
+**Spot Angle[聚光角]**<br>
 设置聚光灯的照射角度
 
 

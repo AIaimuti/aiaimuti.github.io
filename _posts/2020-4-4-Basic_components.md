@@ -1,8 +1,8 @@
 ---
 layout:     post
-title:      游戏场景制作3D模型
+title:      基础组件
 subtitle:   基础内容
-date:       2020-3-10
+date:       2020-4-4
 author:     AIaimuti
 header-img: img/post-bg-open-source-blog.jpg
 catalog: true

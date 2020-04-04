@@ -13,7 +13,6 @@ tags:
 ## 摄像机
 
 1.摄像机的常用操作
-
 + 摄像机的简介与作用
 
 简介：摄像机（Camera）摄像机就是我们眼睛，用于观察我们的游戏世界。
@@ -30,7 +29,7 @@ tags:
 GameObject-->Align  With View(ctrl + Shift + F)对齐视图，让Scene与Game中观看角度和位置一致。
 创建摄像机：Hierarchy面板右键-->Camera。
 
-2. 摄像机相关属性
+2.摄像机相关属性
 
 + Clear Flags[清除标记]
 
@@ -87,7 +86,7 @@ No Shadows：无阴影
 Hard Shadows：硬阴影
 Soft Shadows：软阴影
 
-3. 点光源
+3.点光源
 
 + 简介
 
@@ -101,7 +100,7 @@ Hierarchy面板右键-->Light-->Point Light
 Range[范围]
 设置点光源的照射范围，一个球状范围。
 
-4. 聚光灯
+4.聚光灯
 
 + 简介
 

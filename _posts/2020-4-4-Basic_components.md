@@ -10,7 +10,7 @@ tags:
     - Unity 3D
 ---
 
-## 摄像机
+# 摄像机
 
 摄像机（Camera）摄像机就是我们眼睛，用于观察我们的游戏世界。<br>
 
@@ -20,7 +20,7 @@ tags:
 
 电影中的画面是由摄像机的角度和位置决定的；我们游戏中看到的画面也是摄像机的角度和位置决定的。
 
-### 1.摄像机的基本操作
+## 1.摄像机的基本操作
 
 在Hierarchy面板上选中摄像机，Scene视图会出现预览窗口<br>
 
@@ -30,7 +30,7 @@ GameObject-->Align  With View(ctrl + Shift + F)对齐视图，让Scene与Game中
 
 创建摄像机：Hierarchy面板右键-->Camera。<br>
 
-### 2.摄像机相关属性
+## 2.摄像机相关属性
 
 **Clear Flags[清除标记]**<br>
 skybox:天空盒<br>
@@ -46,7 +46,7 @@ Projective：透视模型，3D游戏使用。
 Near：近平面，摄像机最近能看到的东西。
 Far：远平面，摄像机能看到的最远的东西。
 
-## 灯光
+# 灯光
 
 灯光：Light，用于照亮我们的游戏世界。<br>
 
@@ -56,12 +56,11 @@ Far：远平面，摄像机能看到的最远的东西。
 
 隐藏与显示游戏物体：物体Inspector面板上“图标”右侧的复选框。<br>
 
-### 1. 方向光：Directional Light，用于模拟太阳，模拟自然光。<br>
+## 1. 方向光：Directional Light，用于模拟太阳，模拟自然光。<br>
 
 方向光任何地方都能照射到，就像太阳一样，但是要注意照射方向。
 
 **创建方向光：**<br>
-
 Hierarchy面板右键-->Light-->Directional Light
 
 **属性**
@@ -81,7 +80,7 @@ No Shadows：无阴影<br>
 Hard Shadows：硬阴影<br>
 Soft Shadows：软阴影
 
-### 2.点光源：PointLight，用于模拟电灯泡的照射效果<br>
+## 2.点光源：PointLight，用于模拟电灯泡的照射效果<br>
 
 **创建点光源：**<br>
 Hierarchy面板右键-->Light-->Point Light
@@ -91,7 +90,7 @@ Hierarchy面板右键-->Light-->Point Light
 **Range[范围]<br>**
 设置点光源的照射范围，一个球状范围。<br>
 
-### 3.聚光灯：Spot Light，用于模拟聚光灯的照射效果。<br>
+## 3.聚光灯：Spot Light，用于模拟聚光灯的照射效果。<br>
 
 **创建聚光灯：**<br>
 Hierarchy面板右键-->Light-->Spot Light

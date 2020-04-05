@@ -94,7 +94,7 @@ Input.GetMouseButtonUp();  //抬起某键的一瞬间，返回true
 # 使用变换组件移动游戏物体
 
 **游戏物体与组件关系图如下：**
- ![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/img/Unity/Game_Object.jpg)
+ ![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/img/Unity/Game_Object.png)
  
 所有的组件都是类：当组件挂载到物体身上后运行，引擎会自动实例化对象；我们写的脚本类是游戏物体的大脑。
 

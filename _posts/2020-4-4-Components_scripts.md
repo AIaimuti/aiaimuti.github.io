@@ -105,7 +105,7 @@ Input.GetMouseButtonUp();  //抬起某键的一瞬间，返回true
 gameObject.GetComponent<T>(); //获取相应组件的引用,查找当前游戏物体上的某个组件，然后保存它的引用。
 Tramsform.Translate(Vector3,Space); 移动物体的位置,游戏物体往某个方向移动；以自身坐标系或世界坐标系。
 ```
-## 2. 相关参数
+## 2.相关参数
 **Vector3[struct]:三维向量<br>**
 向量，可以表示一个方向，也可以表示一个位置。
 
@@ -115,3 +115,39 @@ Space.World：表示物体所在世界的坐标系
 
 # 键盘控制移动方向
 使用键盘上的“W,A,S,D”来控制物体的前后左右移动。
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Student : MonoBehaviour
+{
+    // Start is called before the first frame update
+    private Transform m_Transform;
+    void Start()
+    {
+        m_Transform = gameObject.GetComponent<Transform>();
+    }
+
+    void Update()
+    {
+        //m_Transform.Translate(Vector3.forward * 0.1f, Space.Self);
+        if (Input.GetKey(KeyCode.W))
+        {
+            m_Transform.Translate(Vector3.forward * 0.1f, Space.Self);
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            m_Transform.Translate(Vector3.back* 0.1f, Space.Self);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            m_Transform.Translate(Vector3.left * 0.1f, Space.Self);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            m_Transform.Translate(Vector3.right * 0.1f, Space.Self);
+        }
+    }
+}
+```

@@ -211,5 +211,5 @@ Mathf.Lerp(float a，float b，float t) ：插值运算<br>
 基于浮点数t 返回a 到b 之间的插值，t 限制在0～1 之间。<br>
 当t = 0 返回a，当t = 1 返回b。当t = 0.5 返回a 和b 的平均值。<br>
 演示：一个数从0，插值到10。
-
+![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/img/Unity/Mathf_lerp.png)
 备注：Lerp（）这个函数，在很多类中都存在，插值运算的目的基本都是为了“平滑过渡”。

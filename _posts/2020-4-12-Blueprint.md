@@ -44,15 +44,13 @@ SetWorldRotation：设置物体相对于世界坐标旋转。
 右键 New Rotation-->Split Sturt Pin：展开X、Y、Z输入点
 
 ## 按E开关门
-获取玩家控制器、开始/禁用输入、Gate流程控制、Filp Flop触发器、时间轴、门组件、相对旋转
+获取玩家控制器、按键E、开始/禁用输入、Gate流程控制、Filp Flop触发器、时间轴、门组件、相对旋转
 ### 获取玩家控制器
 GetPlayerController：获取玩家控制权
 
 ### 开始/禁用输入
 EnableInput：开始输入
 DisableInput：禁用输入
-
-
 
 GetPlayerController.return Value-->EnableInput.PlayerController
 
@@ -66,4 +64,7 @@ Toggle：表示切换门的状态,如果门是开的,则关上；如果门是关
 ### Filp Flop触发器
 重复执行A、B，执行完A，下次触发执行B，反复循环
 
-
+## 鼠标点击开关门
+获取玩家控制器、鼠标点击、开始/禁用输入、Gate流程控制、Filp Flop触发器、时间轴、门组件、相对旋转
+Door-->OnClick
+世界编辑器World Outliner -->游戏模式 Game Mode-->玩家控制器类新建玩家-->details-->Mouse interFace-->Enable Click Events

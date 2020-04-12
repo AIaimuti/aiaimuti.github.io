@@ -72,3 +72,19 @@ Door-->OnClick 鼠标点击触发<br>
 字体导入
 1）右键-->导入文件 Import Asserts-->添加字体
 2）桌面拖拽到Content Browser内容管理器
+
+## 电梯
+### lerp
+A：数值
+B：数值
+Alpha：0~1之间
+在Alpha从0变道1时，lerp会输出A到B之间的数值，这个数值随着Alpha的变化而变化
+
+### 设置相对位置
+SetActorLocation：设置物体相对与整个Actor蓝图类的位置。<br>
+SetRelativeLocation：设置物体相对于Actor蓝图类的某个组件的位置。<br>
+SetWorldLocation：设置物体相对于世界坐标的位置。
+
+### 双向自动门
+物体-->蓝点拖拽-->GetRelativeLocation，可以直接获取物体的相对位置，避免了一直查看细节面板
+设置变量保存当前值，再将改当前值的偏移量保存，赋值给lerp，就可以实现完全程序化操作，避免，避免了一直查看细节面板

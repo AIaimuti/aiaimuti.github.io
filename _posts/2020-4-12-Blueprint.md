@@ -68,3 +68,7 @@ Toggle：表示切换门的状态,如果门是开的,则关上；如果门是关
 获取玩家控制器、鼠标点击、开始/禁用输入、Gate流程控制、Filp Flop触发器、时间轴、门组件、相对旋转<br>
 Door-->OnClick 鼠标点击触发<br>
 世界编辑器World Outliner -->游戏模式 Game Mode-->玩家控制器类新建玩家-->details-->Mouse interFace-->Enable Click Events
+
+字体导入
+1）右键-->导入文件 Import Asserts-->添加字体
+2）桌面拖拽到Content Browser内容管理器

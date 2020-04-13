@@ -7,7 +7,7 @@ author:     AIaimuti
 header-img: img/post-bg-open-source-blog.jpg
 catalog: true
 tags:
-    - UE4 
+    - UE4 入门系列
 ---
 
 
@@ -99,7 +99,7 @@ Alt + 变量：设置变量当前值
 Ctrl + 变量：获取变量当前值
 
 PrintString：左上角输出语句
-Branch:分流 与Boolean布尔型数值相配合使用
+Branch:分流 与Boolean布尔型数值相配合使用 快捷键B + 鼠标左键
 
 Get All Actors Of Class：获取场景中指定的实例，输出数组
 可以进行场景Actor间的蓝图通信
@@ -115,4 +115,41 @@ Custome Events：可以自定义功能
 
 ## 变量引用
 采用类型转换时，引用引脚拖拽出很多线会导致蓝图界面很乱。因此采用变量引用来方法来用一个变量来表示类型转换的引脚
+
+IsValid：用带？的IsValid工具，变量引用后要判断变量是否有效，有效才可以继续执行。
+
+EventTick：每一帧执行操作
+
+变量引用类似全局变量，需要打开变量右边的眼睛，且编译一下，才能在所属物体的默认里看见
+点击默认旁边的小吸管可以选取指定物体，此方法只能单独引用该类的一个物体
+如果想引用该类的所有物体，则需要Get All Actors Of Class + For Each Loop
+且Get All Actors Of Class必须先选择再获得。
+
+For Each Loop:
+快捷键F + 鼠标左键
+Exec：输入
+Array：该类下多个物体的实例
+Loop Body：执行输出
+Array Element：输出的被执行事件的Array
+Array Index：当前循环到哪个物体，输出数值
+Completed：循环完了执行
+
+## 做个小游戏
+
+### 新的蓝图类
+
+执行控制台命令
+控制台输入ce + 空格 + 关卡中蓝图自定义事件的名字
+
+For Each Loop With Break：
+在For Each Loop中加入了Break，可以中断循环
+
+Set Visibity：设置可视化组件
+
+TextRender：文本可视化组件
+
+Alt + 点击 去掉某个线
+
+点击变量后面的小方快可以改变变量的数值类型
+
 

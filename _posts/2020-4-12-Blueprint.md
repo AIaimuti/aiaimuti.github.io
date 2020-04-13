@@ -19,6 +19,9 @@ Actor蓝图类<br>
 OnComponentBeginOverlap：当物体开始重叠时，即触发开始时<br>
 OnComponentEndOverlap：当物体结束重叠时，即触发结束时
 
+Box Collision：盒碰撞体
+Sphere Collision：球形碰撞体
+
 ### 时间轴
 Play：时间轴开始正向移动。<br>
 Play From Start：从时间轴的第一帧开始正向移动。<br>
@@ -96,4 +99,20 @@ Alt + 变量：设置变量当前值
 Ctrl + 变量：获取变量当前值
 
 PrintString：左上角输出语句
+Branch:分流 与Boolean布尔型数值相配合使用
+
+Get All Actors Of Class：获取场景中指定的实例，输出数组
+可以进行场景Actor间的蓝图通信
+
+## 触发加速
+触发加速即小白人触发后移动速度增加，顾名思义，第一步要先与小白人建立通信
+### 类型转换
+Cast To ThirdPersonCharacter：
+1)蓝图通信，转化到指定的的类型访问其中变量，一般与触发盒子配合使用，想和谁通信就转换为谁的类型
+2)针对性：仅转化后的类型可以访问触发该Actor蓝图类的功能
+自定义事件：
+Custome Events：可以自定义功能
+
+## 变量引用
+采用类型转换时，引用引脚拖拽出很多线会导致蓝图界面很乱。因此采用变量引用来方法来用一个变量来表示类型转换的引脚
 

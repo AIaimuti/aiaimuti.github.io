@@ -72,15 +72,15 @@ Toggle：表示切换门的状态,如果门是开的,则关上；如果门是关
 Door-->OnClick 鼠标点击触发<br>
 世界编辑器World Outliner -->游戏模式 Game Mode-->玩家控制器类新建玩家-->details-->Mouse interFace-->Enable Click Events
 
-字体导入
-1）右键-->导入文件 Import Asserts-->添加字体
+字体导入<br>
+1）右键-->导入文件 Import Asserts-->添加字体<br>
 2）桌面拖拽到Content Browser内容管理器
 
 ## 电梯
 ### lerp
-A：数值
-B：数值
-Alpha：0~1之间
+A：数值<br>
+B：数值<br>
+Alpha：0~1之间<br>
 在Alpha从0变道1时，lerp会输出A到B之间的数值，这个数值随着Alpha的变化而变化
 
 ### 设置相对位置
@@ -89,26 +89,26 @@ SetRelativeLocation：设置物体相对于Actor蓝图类的某个组件的位�
 SetWorldLocation：设置物体相对于世界坐标的位置。
 
 ### 双向自动门
-物体-->蓝点拖拽-->GetRelativeLocation，可以直接获取物体的相对位置，避免了一直查看细节面板
+物体-->蓝点拖拽-->GetRelativeLocation，可以直接获取物体的相对位置，避免了一直查看细节面板<br>
 设置变量保存当前值，再将改当前值的偏移量保存，赋值给lerp，就可以实现完全程序化操作，避免，避免了一直查看细节面板
 
 # set设置变量要放在进入触发器的时候，避免按键和鼠标重复获取获取当前值
 
 ### 拾取钥匙开门
-Alt + 变量：设置变量当前值
+Alt + 变量：设置变量当前值<br>
 Ctrl + 变量：获取变量当前值
 
-PrintString：左上角输出语句
+PrintString：左上角输出语句<br>
 Branch:分流 与Boolean布尔型数值相配合使用 快捷键B + 鼠标左键
 
-Get All Actors Of Class：获取场景中指定的实例，输出数组
+Get All Actors Of Class：获取场景中指定的实例，输出数组<br>
 可以进行场景Actor间的蓝图通信
 
 ## 触发加速
 触发加速即小白人触发后移动速度增加，顾名思义，第一步要先与小白人建立通信
 ### 类型转换
-Cast To ThirdPersonCharacter：
-1)蓝图通信，转化到指定的的类型访问其中变量，一般与触发盒子配合使用，想和谁通信就转换为谁的类型
+Cast To ThirdPersonCharacter：<br>
+1)蓝图通信，转化到指定的的类型访问其中变量，一般与触发盒子配合使用，想和谁通信就转换为谁的类型<br>
 2)针对性：仅转化后的类型可以访问触发该Actor蓝图类的功能
 自定义事件：
 Custome Events：可以自定义功能
@@ -120,87 +120,87 @@ IsValid：用带？的IsValid工具，变量引用后要判断变量是否有效
 
 EventTick：每一帧执行操作
 
-变量引用类似全局变量，需要打开变量右边的眼睛，且编译一下，才能在所属物体的默认里看见
-点击默认旁边的小吸管可以选取指定物体，此方法只能单独引用该类的一个物体
-如果想引用该类的所有物体，则需要Get All Actors Of Class + For Each Loop
+变量引用类似全局变量，需要打开变量右边的眼睛，且编译一下，才能在所属物体的默认里看见<br>
+点击默认旁边的小吸管可以选取指定物体，此方法只能单独引用该类的一个物体<br>
+如果想引用该类的所有物体，则需要Get All Actors Of Class + For Each Loop<br>
 且Get All Actors Of Class必须先选择再获得。
 
-For Each Loop:
-快捷键F + 鼠标左键
-Exec：输入
-Array：该类下多个物体的实例
-Loop Body：执行输出
-Array Element：输出的被执行事件的Array
-Array Index：当前循环到哪个物体，输出数值
+For Each Loop:<br>
+快捷键F + 鼠标左键<br>
+Exec：输入<br>
+Array：该类下多个物体的实例<br>
+Loop Body：执行输出<br>
+Array Element：输出的被执行事件的Array<br>
+Array Index：当前循环到哪个物体，输出数值<br>
 Completed：循环完了执行
 
 ## 做个小游戏
 
 ### 新的蓝图类
 
-执行控制台命令
-Execute Console Command
-控制台输入ce + 空格 + 关卡中蓝图自定义事件的名字
+执行控制台命令<br>
+Execute Console Command<br>
+控制台输入ce + 空格 + 关卡中蓝图自定义事件的名字<br>
 Actor蓝图与关卡蓝图通信
 
-For Each Loop With Break：
-在For Each Loop中加入了Break，可以中断循环
+For Each Loop With Break：<br>
+在For Each Loop中加入了Break，可以中断循环<br>
 
 Set Visibity：设置可视化组件
 
 TextRender：文本可视化组件
 
-Alt + 鼠标左键 去掉某个线
+Alt + 鼠标左键 去掉某个线<br>
 Ctrl + 鼠标左键 更改某个线
 
 点击变量后面的小方快可以改变变量的数值类型
 
 ### Spot Light
-intensity：强度
-Lihgt Color：颜色
-Attenuation radius：衰减半径，即光照射距离调整
-Inner Cone Angle：内锥角，内部锥形光源
-Outer Cone Angle: 外锥角，外部锥形光源
-Temperature：色温
-Affects World：是否影响周围环境，即是否打开
+intensity：强度<br>
+Lihgt Color：颜色<br>
+Attenuation radius：衰减半径，即光照射距离调整<br>
+Inner Cone Angle：内锥角，内部锥形光源<br>
+Outer Cone Angle: 外锥角，外部锥形光源<br>
+Temperature：色温<br>
+Affects World：是否影响周围环境，即是否打开<br>
 Cast Shadows：是否使用阴影
 
 ## 判断机关是否可以开启逻辑
-我们所需逻辑是当所有灯被点亮，开启机关，
-For Each Loop With Break相当于检测每个灯是否打开，
-若打开，则开启机关变量为true
-若关闭，则开启机关变量为false，break结束循环
+我们所需逻辑是当所有灯被点亮，开启机关，<br>
+For Each Loop With Break相当于检测每个灯是否打开，<br>
+若打开，则开启机关变量为true<br>
+若关闭，则开启机关变量为false，break结束循环<br>
 若循环能完成，则说明开启机关变量为全为true，通信关卡蓝图，ce + 关卡蓝图中自定义事件名字，执行机关命令
 
 左键选中物体，在蓝图中可以右键创建引用
 
 ## 蓝图接口
-如果这个蓝图里面有对应的蓝图接口，发送的消息才会产生通信。
+如果这个蓝图里面有对应的蓝图接口，发送的消息才会产生通信。<br>
 蓝图接口如果添加输入输出就不能作为事件使用，但是没有添加输入输出的也可当作函数使用
 
-蓝图接口可用于蓝图通信，步骤如下：
-1）创建蓝图接口，内容管理器右键-->高级功能蓝图类-->创建蓝图接口
-2）在需要使用的蓝图类中类管理中添加所创建的蓝图接口，并以此接口事件开始蓝图功能。
-3）在发送信息的类里创建通信所需变量。
-4）在需要使用的蓝图类中并将自己赋值给发送信息类中的创建的通信所需变量。
+蓝图接口可用于蓝图通信，步骤如下：<br>
+1）创建蓝图接口，内容管理器右键-->高级功能蓝图类-->创建蓝图接口<br>
+2）在需要使用的蓝图类中类管理中添加所创建的蓝图接口，并以此接口事件开始蓝图功能。<br>
+3）在发送信息的类里创建通信所需变量。<br>
+4）在需要使用的蓝图类中并将自己赋值给发送信息类中的创建的通信所需变量。<br>
 5）发送信息的类中判断是否变量中有值，如果有，则发送信息，开始蓝图接口事件。
 
 ## 拾取物品_射线检测
-LineTraceByChannel：射线检测
-BoxTraceByChannel：盒体检测
-SphereTraceByChannel：球体检测
+LineTraceByChannel：射线检测<br>
+BoxTraceByChannel：盒体检测<br>
+SphereTraceByChannel：球体检测<br>
 CapsuleTraceByChannel：胶囊体检测
 
 制作射线的思想：需要一个起始点和一个结束点构成线段，通过检测结束点是否发生碰撞来达到检测效果
 
-初始点：
+初始点：<br>
 摄像机FirstPersonCamera，我们将Camera初始点的x，y，z置0，相当于坐标的校正，更符合人物在3D场景中的移动特性。
 
-结束点：
-GetForwardVector：可以以获取Character面向的方向，并以（0，1）的三维坐标坐标作为输出
-既然已知方向，那么从我们方向向前增加一段距离，不久相当于射线检测的功能了，增加距离即将输出乘以一个值，如500，
-可以想象就是我们人拿了一个棍子，在往我们面向的方向探测，但这仅有方向信息，没有位置信息，
-因此，我们将探测点的坐标加上Camera的坐标，就既有位置信息又有方向信息了
+结束点：<br>
+GetForwardVector：可以以获取Character面向的方向，并以（0，1）的三维坐标坐标作为输出<br>
+既然已知方向，那么从我们方向向前增加一段距离，不久相当于射线检测的功能了，增加距离即将输出乘以一个值，如500，<br>
+可以想象就是我们人拿了一个棍子，在往我们面向的方向探测，但这仅有方向信息，没有位置信息，<br>
+因此，我们将探测点的坐标加上Camera的坐标，就既有位置信息又有方向信息了<br>
 
 实际应用时，射线检测点和我们的准星稍微有些差距，通过在结束点的z轴方向增加一点偏移就可以更完美了
 

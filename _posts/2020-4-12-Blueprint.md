@@ -139,7 +139,9 @@ Completed：循环完了执行
 ### 新的蓝图类
 
 执行控制台命令
+Execute Console Command
 控制台输入ce + 空格 + 关卡中蓝图自定义事件的名字
+Actor蓝图与关卡蓝图通信
 
 For Each Loop With Break：
 在For Each Loop中加入了Break，可以中断循环
@@ -148,8 +150,26 @@ Set Visibity：设置可视化组件
 
 TextRender：文本可视化组件
 
-Alt + 点击 去掉某个线
+Alt + 鼠标左键 去掉某个线
+Ctrl + 鼠标左键 更改某个线
 
 点击变量后面的小方快可以改变变量的数值类型
 
+### Spot Light
+intensity：强度
+Lihgt Color：颜色
+Attenuation radius：衰减半径，即光照射距离调整
+Inner Cone Angle：内锥角，内部锥形光源
+Outer Cone Angle: 外锥角，外部锥形光源
+Temperature：色温
+Affects World：是否影响周围环境，即是否打开
+Cast Shadows：是否使用阴影
 
+## 判断机关是否可以开启逻辑
+我们所需逻辑是当所有灯被点亮，开启机关，
+For Each Loop With Break相当于检测每个灯是否打开，
+若打开，则开启机关变量为true
+若关闭，则开启机关变量为false，break结束循环
+若循环能完成，则说明开启机关变量为全为true，通信关卡蓝图，ce + 关卡蓝图中自定义事件名字，执行机关命令
+
+左键选中物体，在蓝图中可以右键创建引用

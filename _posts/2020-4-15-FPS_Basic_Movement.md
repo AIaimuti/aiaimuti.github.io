@@ -2,7 +2,7 @@
 layout:     post
 title:      Fps游戏准备阶段
 subtitle:   基础内容
-date:       2020-4-12
+date:       2020-4-15
 author:     AIaimuti
 header-img: img/post-bg-open-source-blog.jpg
 catalog: true

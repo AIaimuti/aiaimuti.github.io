@@ -203,8 +203,18 @@ GetForwardVector：可以以获取Character面向的方向，并以（0，1）�
 因此，我们将探测点的坐标加上Camera的坐标，就既有位置信息又有方向信息了<br>
 
 实际应用时，射线检测点和我们的准星稍微有些差距，通过在结束点的z轴方向增加一点偏移就可以更完美了
+如果想让我们的检测的目标做出回应，我们要设置自己的追踪通道，并将物体相应的响应通道打开。
+Setting-->ProjectSetting-->Collision--NewTraceChannel 
+设置-->项目设置-->碰撞-->创建通道 并将Defult Response 设置为ignore
 
 
+先选中某个物体，然后再到蓝图里添加，在AddConponent中会直接显示
+custom自定义
 
+BreakHitResult：会将射线碰撞结果相关属性进行拆分，形成多个信息引脚
 
-
+骨架网格体设置碰撞：
+右键Creat-->PhysicsAssert-->Create,会出现带黄色横线的图标为骨架网格体的物理资产，然后需要在紫色骨架网格体界面添加物理资产
+骨架网格体和静态网格体的区别：
+1）紫色的是骨架网格体Skeletal Mesh，蓝色的是静态网格体Static Mesh
+2）骨架网格体可以播放动画，静态网格体不可以

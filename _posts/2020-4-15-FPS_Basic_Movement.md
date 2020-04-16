@@ -51,50 +51,49 @@ AddMovementInput这个函数会根据第一个参数World Direction的值去移�
 GetActorForwardVector是获取在世界空间中CharactorX轴上的向量，和世界前方一致返回1，和世界后方一致返回-1<br>
 GetActorRightVector是获取在世界空间中CharactorY轴上的向量，和世界左方一致返回-1，和世界右方一致返回1
 
-然后是鼠标控制方向，
-Y轴方向用AddControllerPitchInput，Pitch表示点头就是绕 Y 移动；
+然后是鼠标控制方向，<br>
+Y轴方向用AddControllerPitchInput，Pitch表示点头就是绕 Y 移动；<br>
 Z轴方向用AddControllerYawInput，Yaw表示摇头 就是绕 Z 移动；
 
 
 ## 添加小白人加速、跳跃
-编辑界面菜单栏edit-->Project Setting-->Engine-->Action Mappings<br>
-Run:Lift Shift和Right Shift
-Jump:Space Bar
+编辑界面菜单栏edit-->Project Setting-->Engine-->Action Mappings<br><br>
+Run:Lift Shift和Right Shift<br>
+Jump:Space Bar<br>
 上述映射为动作映射，按下就生效
 
-Run需要Character Movement组件，
-Pressed-->Set Max Walk Speed 500
+Run需要Character Movement组件，<br>
+Pressed-->Set Max Walk Speed 500<br>
 Released-->Set Max Walk Speed 200
 
-Jump：
-Pressed-->Jump
+Jump：<br>
+Pressed-->Jump<br>
 Released-->Stop Jumping
 
 ## 动画制作
 ### 按布尔值混合姿势 Blend Poses by bool
-通过一个布尔变量来判断走哪个姿势
+通过一个布尔变量来判断走哪个姿势<br>
 1为上方姿势，0为下方姿势
 
 ### 变换(修改)骨骼 Transform(modify)Bone
-需要先在其细节面板上Translation修改
-Translation mode：add to Existing
-Translation space：Component space
-Skeletal Control：选择需要修改的骨骼
+需要先在其细节面板上Translation修改<br>
+Translation mode：add to Existing<br>
+Translation space：Component space<br>
+Skeletal Control：选择需要修改的骨骼<br>
 Rotation的修改相同
 
 ### 骨骼分层混合 layerd Blend Per Bone
-双击打开细节面板，在config选项中
-layer steup展开-->Branch filter 加号添加新元素再展开
-输入Bone name骨骼名称，Blend Depth选择1
-勾选Mesh Space Rotation Blend网格空间体选择混合 和 Mesh Space Scale Blend 网格空间体缩放混合
+双击打开细节面板，在config选项中<br>
+layer steup展开-->Branch filter 加号添加新元素再展开<br>
+输入Bone name骨骼名称，Blend Depth选择1<br>
+勾选Mesh Space Rotation Blend网格空间体选择混合 和 Mesh Space Scale Blend 网格空间体缩放混合<br>
 相当于把人物切成两半，上半身用第一个动作，下半身用第二个动作
 
 ### 双骨骼IK TwoBone IK
-
-IK就是反向控制
-双击细节面板IKBone选择hand_l就是左手
-Effector选择BoneSpace骨骼空间
-让左手模仿右手的动作，使模型更精细
+IK就是反向控制<br>
+双击细节面板IKBone选择hand_l就是左手<br>
+Effector选择BoneSpace骨骼空间<br>
+让左手模仿右手的动作，使模型更精细<br>
 也常用于上楼时，使用脚反向控制大腿；拿枪时手反向控制胳膊
 
 TryGetPawnOwner-->GetVelocity-->Vector Length-->Speed
@@ -103,7 +102,15 @@ TryGetPawnOwner-->GetVelocity-->Vector Length-->Speed
 
 蓝图不需要的引脚可以勾选不显示
 
+不知道角度问题，用printString显示一下
 
+## 弯腰操作
+
+我们所需要的功能是人物的胸椎随着我们鼠标在Y轴的移动而改变角度，这就需要变换(修改)骨骼 Transform(modify)Bone函数，来改变骨骼的rotation参数。
+首先要获取控制Pawn的Roration参数，Y引脚向上范围为0~90，向下为360~270
+Transform(modify)Bone函数在竖直方向由X引脚控制，向上所需范围为0~-90，向下为0~90，因此需要进行一些变换
+向上添加负号，向下为360-X值，
+其中，向上向下可由180独区分，小于180添加负号，大于的为360-X，然后接入Transform(modify)Bone X引脚
 
 
 

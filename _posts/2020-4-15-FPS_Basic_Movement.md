@@ -110,7 +110,7 @@ TryGetPawnOwner-->GetVelocity-->Vector Length-->Speed
 首先要获取控制Pawn的Roration参数，Y引脚向上范围为0 ~ 90，向下为360 ~ 270
 Transform(modify)Bone函数在竖直方向由X引脚控制，向上所需范围为0 ~ -90，向下为0 ~ 90，因此需要进行一些变换
 向上添加负号，向下为360-X值，
-其中，向上向下可由180独区分，小于180添加负号，大于的为360-X，然后接入Transform(modify)Bone X引脚
+其中，向上向下可由180度区分，小于180添加负号，大于的为360-X，然后接入Transform(modify)Bone X引脚
 
 
 

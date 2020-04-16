@@ -98,7 +98,7 @@ Effector选择BoneSpace骨骼空间<br>
 
 TryGetPawnOwner-->GetVelocity-->Vector Length-->Speed
 
-编辑器偏好设置-->全部设置-->收藏-->最下面显示收藏勾选，这样添加蓝图时会显示收藏
+编辑器偏好设置-->全部设置-->收藏-->最下面显示收藏勾选，这样添加蓝图时会显示收藏<br>
 
 蓝图不需要的引脚可以勾选不显示
 
@@ -106,10 +106,10 @@ TryGetPawnOwner-->GetVelocity-->Vector Length-->Speed
 
 ## 弯腰操作
 
-我们所需要的功能是人物的胸椎随着我们鼠标在Y轴的移动而改变角度，这就需要变换(修改)骨骼 Transform(modify)Bone函数，来改变骨骼的rotation参数。
-首先要获取控制Pawn的Roration参数，Y引脚向上范围为0 ~ 90，向下为360 ~ 270
-Transform(modify)Bone函数在竖直方向由X引脚控制，向上所需范围为0 ~ -90，向下为0 ~ 90，因此需要进行一些变换
-向上添加负号，向下为360-X值，
+我们所需要的功能是人物的胸椎随着我们鼠标在Y轴的移动而改变角度，这就需要变换(修改)骨骼 Transform(modify)Bone函数，来改变骨骼的rotation参数。<br>
+首先要获取控制Pawn的Roration参数，Y引脚向上范围为0 ~ 90，向下为360 ~ 270<br>
+Transform(modify)Bone函数在竖直方向由X引脚控制，向上所需范围为0 ~ -90，向下为0 ~ 90，因此需要进行一些变换<br>
+向上添加负号，向下为360-X值，<br>
 其中，向上向下可由180度区分，小于180添加负号，大于的为360-X，然后接入Transform(modify)Bone X引脚
 
 

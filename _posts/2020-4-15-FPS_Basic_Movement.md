@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Fps游戏准备阶段
+title:      Fps基础移动和人物蓝图构建
 subtitle:   基础内容
 date:       2020-4-15
 author:     AIaimuti
@@ -69,6 +69,43 @@ Released-->Set Max Walk Speed 200
 Jump：
 Pressed-->Jump
 Released-->Stop Jumping
+
+## 动画制作
+### 按布尔值混合姿势 Blend Poses by bool
+通过一个布尔变量来判断走哪个姿势
+1为上方姿势，0为下方姿势
+
+### 变换(修改)骨骼 Transform(modify)Bone
+需要先在其细节面板上Translation修改
+Translation mode：add to Existing
+Translation space：Component space
+Skeletal Control：选择需要修改的骨骼
+Rotation的修改相同
+
+### 骨骼分层混合 layerd Blend Per Bone
+双击打开细节面板，在config选项中
+layer steup展开-->Branch filter 加号添加新元素再展开
+输入Bone name骨骼名称，Blend Depth选择1
+勾选Mesh Space Rotation Blend网格空间体选择混合 和 Mesh Space Scale Blend 网格空间体缩放混合
+相当于把人物切成两半，上半身用第一个动作，下半身用第二个动作
+
+### 双骨骼IK TwoBone IK
+
+IK就是反向控制
+双击细节面板IKBone选择hand_l就是左手
+Effector选择BoneSpace骨骼空间
+让左手模仿右手的动作，使模型更精细
+也常用于上楼时，使用脚反向控制大腿；拿枪时手反向控制胳膊
+
+TryGetPawnOwner-->GetVelocity-->Vector Length-->Speed
+
+编辑器偏好设置-->全部设置-->收藏-->最下面显示收藏勾选，这样添加蓝图时会显示收藏
+
+蓝图不需要的引脚可以勾选不显示
+
+
+
+
 
 
 

@@ -77,3 +77,7 @@ ADSL账号密码，VLAN，交换机端口绑定Mac地址
 
 封装过程：
 ![](https://img-blog.csdnimg.cn/20200102005413482.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
+解封装过程：
+![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/img/Computer_Network/decode.jpg)
+通信过程：
+![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/img/Computer_Network/communication.jpg)

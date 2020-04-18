@@ -169,6 +169,10 @@ OSPF协议号：89；
 (11)可变部分：一般没用。
 
 ## 4.7 IP协议
+能自动学习路由表的协议统称为IP协议。<br>
+IP协议的功能，寻址和路由（根据对方的IP地址，寻找最佳路径传输信息）；<br>
+传递服务，IP协议只是尽自己最大努力去传输数据包，可靠性由上层协议（TCP）获得；<br>
+数据包的分片与重组。<br>
 (1)网络畅通的条件<br>
 沿途路由器必须知道下一跳给谁，数据包有去有回。
 ![](https://img-blog.csdnimg.cn/20200103224613301.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
@@ -179,9 +183,9 @@ OSPF协议号：89；
 
 ### 4.7.2 动态路由
 (1)RIP协议<br>
-周期性广播(30s)路由表，选择路径的依据是最少的跳数，最大跳数是15跳，所以一般不适合大网络。<br>
+判断标准是过的路由器越少路径越优，周期性广播(30s)路由表，选择路径的依据是最少的跳数，最大跳数是15跳，所以一般不适合大网络。<br>
 (2)OSPF协议<br>
-根据带宽选择路径。
+判断标准是带宽高，开销少，按照带宽选取路径。
 
 ## 4.8 子网掩码
 能够帮助路由器判断对应主机是否在同一个网段中。
@@ -195,7 +199,6 @@ OSPF协议号：89；
 169.254.0.0<br>
 10.0.0.0，172.16.0.0–172.31.0.0，192.168.0.0–192.168.255.0 保留的私网地址<br>
 ![](https://img-blog.csdnimg.cn/20200105161615892.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
-
 
 ## 4.10 子网划分
 ![](https://img-blog.csdnimg.cn/20200105161720106.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)

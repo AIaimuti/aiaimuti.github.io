@@ -114,4 +114,5 @@ ADSL账号密码，VLAN，交换机端口绑定Mac地址
 网络当前时延D = 网络空闲时时延D0 / (1 - 信道利用率U)
 
 ## 参考来源
-https://www.bilibili.com/video/av9876107?p=7
+https://www.bilibili.com/video/av9876107?p=7<br>
+https://blog.csdn.net/iwanderu/article/details/103795715

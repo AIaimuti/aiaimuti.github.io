@@ -34,9 +34,15 @@ tags:
 ![](https://img-blog.csdnimg.cn/20200103224137911.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
 ## 4.2 网络设备和OSI参考模型的关系
-### 4.2.1举例，PC4向PC3传输数据
+### 4.2.1举例，PC4向PC3传输数据 本网络设备通信和跨网络设备通信
 ![](https://img-blog.csdnimg.cn/20200103224145981.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
-PC：计算机；Hub：集线器；Switch：交换机；Router：路由
+PC：计算机；Hub：集线器；Switch：交换机（二层设备）；Router：路由
+
+交换机 + 集线器还是一个网络，只是进行了拓展，没有用路由器都是一个网络
+路由器是网络层设备
+子码掩码就是告诉计算机哪个是IP地址哪部分是网段部分，如10.0.0.0 255.255.0.0，说明10.0是网络部分。
+路由器一般使用第一个值作为网关，如10.0.0.1，局域网中每个设备的网关都10.0.0.1。
+路由器之间的数据传输由事先写好的路由表决定
 
 发送端(封装)：<br>
 (1)应用层准备要传输的数据；<br>

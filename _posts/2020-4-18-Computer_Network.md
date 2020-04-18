@@ -75,9 +75,9 @@ ADSL账号密码，VLAN，交换机端口绑定Mac地址
 4.应用层安全隐患？
 应用程序有没有漏洞；
 
-封装过程：
+封装过程：就像包装快递，上面写上寄件人和收件人地址
 ![](https://img-blog.csdnimg.cn/20200102005413482.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
-解封装过程：
+解封装过程：就像拆快递，把没有得东西去除，得到物品；数据链路层校验就像，拆快递验货，如果快递内容和快递包装上标识得不一致，就拒收
 ![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/img/Computer_Network/decode.jpg)
-通信过程：
+通信过程：1.我们只关心快递能不能到。2.快递运送的方式就像数据运送过程，各种各样
 ![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/img/Computer_Network/communication.jpg)

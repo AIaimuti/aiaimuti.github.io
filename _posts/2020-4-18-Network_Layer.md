@@ -74,14 +74,13 @@ ARP是解决同一个局域网上的主机或路由器的IP地址和MAC地址的
 从IP地址到MAC地址的解析是自动进行的，主机的用户对这种地址解析过程是不知情的。<br>
 只要主机或路由器要和本网络上的另一个已知IP地址的主机或路由器进行通信，ARP协议就会自动地将该IP地址解析为链路层所需要的MAC地址。
 
-扫描本网络mac地址，控制设备连接
 ### 4.3.3 ARP欺骗/网络执法官/P2P终结者/ARP防火墙-实验课
-ARP欺骗：当ARP广播时，可以将假mac地址传到广播处，这样就捕获了通信内容。ARP欺骗属于数据链路层故障。
-网络执法官：当ARP广播时，发送不存在的mac地址，这样交换机未发现mac就会丢弃数据，这样就禁止了广播者与其他设备通信。
-P2P终结者：设备上网时，需要用DSN解析网关，这时告诉别的设备网关时自己的mac地址，这样所有的流量都会经由自己，再向外发送。
-放置ARP欺骗，采用ARP静态绑定 arp -s 192.168.0.1 物理地址
-arp -a 查看 
-本地连接 修复也可以 清除ARP缓存
+ARP欺骗：当ARP广播时，可以将假mac地址传到广播处，这样就捕获了通信内容。ARP欺骗属于数据链路层故障。<br>
+网络执法官：当ARP广播时，发送不存在的mac地址，这样交换机未发现mac就会丢弃数据，这样就禁止了广播者与其他设备通信。<br>
+P2P终结者：设备上网时，需要用DSN解析网关，这时告诉别的设备网关时自己的mac地址，这样所有的流量都会经由自己，再向外发送。<br>
+放置ARP欺骗，采用ARP静态绑定 arp -s 192.168.0.1 物理地址<br>
+arp -a 查看 <br>
+本地连接 修复也可以 清除ARP缓存<br>
 查看ip状态 ipconfig /all
 
 ### 4.3.4 使用ARP的四种典型情况
@@ -108,97 +107,104 @@ Linux 64<br>
 Windows 128<br>
 Unix 256<br>
 可以根据TTL值粗略判定对方是什么系统。
+ping 192.168.0.1 -t  一直ping
+ping 192.168.0.1 -l 200 用大包ping
+ping 192.168.0.1 -i 更改数据包TTL时间，能够追踪数据包途经的路由器
 
-(1)PING,因特网包套所起，用于测试网络连接量的程序。ping发送一饿ICMP回声请求消息给目的地并报告是否收到所希望的ICMP回声应答。
-(2)ping指端对端联通，通常用作可用性检测，但是某些病毒会强行大量远程执行ping命令抢占你的网络资源，导致系统网速变慢。严禁ping入侵作为大多数防火墙的一个基本功能提供给用户进行选择。
-(3)如果打开IE浏览器访问网站失败，可以通过ping命令测试到Internet的网络连通，可以为你排除网络故障提供线索。
+(1)PING,因特网包套所起，用于测试网络连接量的程序。ping发送一饿ICMP回声请求消息给目的地并报告是否收到所希望的ICMP回声应答。<br>
+(2)ping指端对端联通，通常用作可用性检测，但是某些病毒会强行大量远程执行ping命令抢占你的网络资源，导致系统网速变慢。严禁ping入侵作为大多数防火墙的一个基本功能提供给用户进行选择。<br>
+(3)如果打开IE浏览器访问网站失败，可以通过ping命令测试到Internet的网络连通，可以为你排除网络故障提供线索。<br>
 
-4.4.3 ping和pathping命令
-QQ能登上，网页打不开是为什么？ 网络层没有问题，域名解析有问题。
-pathping 能跟踪数据包路径，发现出问题的位置。
-Windows上跟踪数据包路径的命令：tracerert 10.7.1.53
+### 4.4.3 ping和pathping命令
+QQ能登上，网页打不开是为什么？ 网络层没有问题，域名解析有问题。<br>
+pathping 能跟踪数据包路径，发现出问题的位置。<br>
+Windows上跟踪数据包路径的命令：tracerert 10.7.1.53<br>
 路由器上跟踪数据包路径的命令：traceroute 12.0.0.3
 
-4.5 IGMP协议和多播组播
-点到点通信：
-广播：目标MAC地址全是F，目标IP地址全是255，也就是全是1.全网广播不能跨越路由器。
+## 4.5 IGMP协议和多播组播
+点到点通信：<br>
+广播：目标MAC地址全是F，目标IP地址全是255，也就是全是1.全网广播不能跨越路由器。<br>
 组播=多播：分组广播。
 
-4.5.1 访问多播视频节目
-使用多播一般用于直播，网络会议，能够节省带宽。
+### 4.5.1 访问多播视频节目
+使用多播一般用于直播，网络会议，能够节省带宽。<br>
 IGMP协议的作用就是周期性扫描本网段内有没有主机在访问多播数据包。
 
-4.6 IP数据包的结构
-注意，ARP数据包不是这个格式。
+## 4.6 IP数据包的结构
+注意，ARP数据包不是这个格式。<br>
 首部：第一部分是固定长度，20字节，是所有IP数据包必须具有的。后一部分是可选字段，长度可变。
-
+![](https://img-blog.csdnimg.cn/20200103224342694.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 每一行32bit相当于1个字节，一共5行，共20字节。
-
-(1)版本：用来表示TCP/IP是哪个版本，ipv4还是ipv6.
-(2)区分服务：确定更高的传输优先级。
-(3)总长度：确定数据部分长度。一共是16位，最多有2^16-1=65535字节。
+![](https://img-blog.csdnimg.cn/20200103224429788.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
+(1)版本：用来表示TCP/IP是哪个版本，ipv4还是ipv6.<br>
+(2)区分服务：确定更高的传输优先级。<br>
+(3)总长度：确定数据部分长度。一共是16位，最多有2^16-1=65535字节。<br>
 
 注意，网络层，数据包最大65535字节；而数据链路层数据最大是1500字节，是不一样的。所以说，一旦超过数据链路层的最大要求时(网络层数据部分超过1480字节)，数据包会分片。最大传输单元MTU。
-
-
+![](https://img-blog.csdnimg.cn/20200103224445401.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
 数据包分片：把数据分割，分别添加IP地址，通过网络发给目标MAC地址。目标在通过网络层拼接。传送过程中可能会丢包，或者后发的先到(泪滴攻击就是利用目标机发送破坏的IP包(重叠的包货过大的包负荷)可以通过TCP/IP协议来瘫痪各种不同的操作系统)。所以需要编号。
 
-(4)标识：如果出现数据包分片，那么标识用来确定哪些数据包是需要组合的。
-(5)标志：确定该数据包是完整的还是分片中的一部分。占3位，只有前两位有用，标志字段最低位是MF(More Fragment)，MF=1表示后面还有分片，MF=0表示最后一个分片。标志字段中间一位是DF(Don’t Fragment)，只有DF=0才允许分片。
+(4)标识：如果出现数据包分片，那么标识用来确定哪些数据包是需要组合的。<br>
+(5)标志：确定该数据包是完整的还是分片中的一部分。占3位，只有前两位有用，标志字段最低位是MF(More Fragment)，MF=1表示后面还有分片，MF=0表示最后一个分片。标志字段中间一位是DF(Don’t Fragment)，只有DF=0才允许分片。<br>
+010 没分片<br>
+001 分片了 后面还有<br>
+000 分片了 后面没了<br>
 (6)片偏移：偏移等于当前字节在数据部分的第几个再除以8.(下图是一个举例)
+![](https://img-blog.csdnimg.cn/2020010322450658.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
+(7)生存时间：就是TTL，time to live，每过一个路由器就减1。8位二进制。防止数据包在网络中循环。<br>
+(8)协议：协议字段指出应将数据部分交给哪个进程。
+![](https://img-blog.csdnimg.cn/20200103224518593.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
-(7)生存时间：就是TTL，time to live，每过一个路由器就减1。8位二进制。防止数据包在网络中循环。
-(8)协议：用协议号标识数据部分是什么数据。
-
-
-ICMP协议号：1；
-IGMP协议号：2；
-TCP协议号：6；
-UDP协议号：17；域名解析
-IPv6协议号：41；
+ICMP协议号：1；<br>
+IGMP协议号：2；<br>
+TCP协议号：6；<br>
+UDP协议号：17；域名解析<br>
+IPv6协议号：41；<br>
 OSPF协议号：89；
 
 (9)首部检验和：16位，只检验数据报的首部，不检验数据部分。这里不是采用CRC检验码而是采用简单的计算方法。每经过一个路由器就会检验一次。
-
-(10)源地址和目的地址都是IP地址，32位，只符合IPv4。IPv6是128位。
+![](https://img-blog.csdnimg.cn/20200103224539933.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
+(10)源地址和目的地址都是IP地址，32位，只符合IPv4。IPv6是128位。<br>
 (11)可变部分：一般没用。
 
-4.7 IP协议
-(1)网络畅通的条件
+## 4.7 IP协议
+(1)网络畅通的条件<br>
 沿途路由器必须知道下一跳给谁，数据包有去有回。
+![](https://img-blog.csdnimg.cn/20200103224613301.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
-
-4.7.1 静态路由
-需要管理员告诉路由器所有没有直连的网络下一跳给谁。
+### 4.7.1 静态路由
+需要管理员告诉路由器所有没有直连的网络下一跳给谁。<br>
 适合于小规模网络，不能自动调整路由。
 
-4.7.2 动态路由
-(1)RIP协议
-周期性广播(30s)路由表，选择路径的依据是最少的跳数，最大跳数是15跳，所以一般不适合大网络。
-(2)OSPF协议
+### 4.7.2 动态路由
+(1)RIP协议<br>
+周期性广播(30s)路由表，选择路径的依据是最少的跳数，最大跳数是15跳，所以一般不适合大网络。<br>
+(2)OSPF协议<br>
 根据带宽选择路径。
 
-4.8 子网掩码
+## 4.8 子网掩码
 能够帮助路由器判断对应主机是否在同一个网段中。
+![](https://img-blog.csdnimg.cn/20200105161511780.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
+
+## 4.9 ABCDE类网络地址
+网络地址(网络号)唯一指定了每个网络。同一网络中的每台计算机都共享相同的网络地址，并用它作为自己IP地址的一部分。ABC对应的子网掩码分别是255.0.0.0和255.255.0.0和255.255.255.0<br>
+![](https://img-blog.csdnimg.cn/20200105161549762.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
+特殊的几个地址<br>
+127.0.0.1 本地换回地址<br>
+169.254.0.0<br>
+10.0.0.0，172.16.0.0–172.31.0.0，192.168.0.0–192.168.255.0 保留的私网地址<br>
+![](https://img-blog.csdnimg.cn/20200105161615892.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
 
-4.9 ABCDE类网络地址
-网络地址(网络号)唯一指定了每个网络。同一网络中的每台计算机都共享相同的网络地址，并用它作为自己IP地址的一部分。ABC对应的子网掩码分别是255.0.0.0和255.255.0.0和255.255.255.0
-
-特殊的几个地址
-
-127.0.0.1 本地换回地址
-169.254.0.0
-10.0.0.0，172.16.0.0–172.31.0.0，192.168.0.0–192.168.255.0 保留的私网地址
-
-
-
-4.10 子网划分
-
-
+## 4.10 子网划分
+![](https://img-blog.csdnimg.cn/20200105161720106.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
+![](https://img-blog.csdnimg.cn/20200105161720106.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
+![](https://img-blog.csdnimg.cn/20200105161740472.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
+![](https://img-blog.csdnimg.cn/20200105161740472.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 注意，全为1是广播，所以63，127，191，254不选
-
+![](https://img-blog.csdnimg.cn/20200105161804726.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
 ## 参考来源
-https://www.bilibili.com/video/av9876107?p=7
+https://www.bilibili.com/video/av9876107?p=7<br>
+https://blog.csdn.net/iwanderu/article/details/103812967

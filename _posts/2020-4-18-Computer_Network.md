@@ -25,12 +25,12 @@ Internet：有ISP，ISP是电信运营商internet service producer，有自己�
 数据帧：数据包 + 原mac地址 + 目标mac地址<br>
 通过不断变化mac地址，来访问不同的路由器，最终到达所需访问的地址。<br>
 物理地址决定了下一个路由器的去处，IP地址决定了最终的目的地  
-![](https://blog.csdn.net/iwanderu/article/details/103795715)
+![](https://img-blog.csdnimg.cn/20200102005246159.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
 ## 数据的返回：
 发送端的数据时分块发送的，请求端和发送端都有缓存
 例如：网页上的数据是一块块发送给请求端的，请求端成功接收后会发送反馈信息，此时发送端中的缓存可以删掉了。数据接收完成后，会拼接恢复网页。
-![](https://blog.csdn.net/iwanderu/article/details/103795715)
+![](https://img-blog.csdnimg.cn/20200102005316692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
 ## OSI参考模型
 OSI参考模型共7层
@@ -61,7 +61,7 @@ Mac地址冲突，2个一样的Mac地址同时访问；ADSL(非对称数字用�
 
 4.应用层(合并3层)故障怎么办？
 应用程序配置问题
-
+![](https://img-blog.csdnimg.cn/2020010200534545.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 ## OSI参考模型和网络安全
 1.物理层安全隐患？
 别人能私自接入你的网络，应该拔掉不用的网线或接口；

@@ -162,6 +162,7 @@ Carrier Sense Multiple Access with Collision Detection<br>
 DIX Ethernet V2一般是指这个。
 IEEE 802.3 两个标准差别很小。
 以太网 是满足DIX Ethernet V2标准的局域网。
+一般来说满足CSMA/CD标准的就是以太网。
 
 ### 3.4.2 以太网与数据链路层的2个子层
 为了使数据链路层更好的适应多种局域网标准，802委员会把局域网拆分为：<br>

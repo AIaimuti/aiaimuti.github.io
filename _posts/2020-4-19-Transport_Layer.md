@@ -274,17 +274,16 @@ TCP连接时三次握手各状态
 ![](https://img-blog.csdn.net/20180628212043623?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3llcWlhbmcxOTkxMDQxMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 ![](https://img-blog.csdn.net/20180628212108966?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3llcWlhbmcxOTkxMDQxMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 TCP连接释放: 四次挥手
-1. A想要关闭连接, 就发送报文。 发送FIN=1, SEQ=U(这个U等于前一个报文的最后一个字节+1)。
-
-2. 这时A进入等待结束状态, B 收到释放连接的报文后, 给予确认, 发送ACK=1,ack=U+1(回应A，seq值 + 1), SEQ=V。
-
-3. 这时, TCP处于半关闭状态, 因为是A提出关闭的, 所以A就没有数据传给B, 但是如果B有数据传给A, A一定要接收。
-
-4. A收到B的确认报文, 整个TCP处于半关闭状态后, 就剩下最后一步,等待B也发送释放连接的请求。(相当于把半关闭状态提升为全关闭状态)
-
+1. A想要关闭连接, 就发送报文。 发送FIN=1, seq=u(这个U等于前一个报文的最后一个字节+1)。
+A-->FIN=1, SEQ=U
+2. 这时A进入等待结束状态, B 收到释放连接的报文后, 给予确认, 发送ACK=1,ack=u+1(回应A，seq值 + 1), seq=v。
+B-->ACK=1,seq=v,ack=u+1
+3. 这时, A处TCP处于FIN-WAIT-1状态, 因为是A提出关闭的, 所以A就没有数据传给B, 但是如果B有数据传给A, A一定要接收。
+4. A收到B的确认报文, 整个TCP处于FIN-WAIT-2状态, 就剩下最后一步,等待B也发送释放连接的请求。
 5. B发送释放链接报文。 发送FIN=1(结束标识), ACK=1, ack=u+1(回应A，seq值 + 1), SEQ=W。
-
+B-->FIN=1,ACK=1,seq=w,ack=u+1
 6. 当A收到B的请求释放连接报文后, 发送ACK=1, ack=w+1(回应B，seq值 + 1),SEQ=U+1，向B进行确认。 发了之后, 进入"时间等待" 状态.  经过时间等待计时器设置的2MSL后, 才算是完全释放了TCP连接。
+A-->ACK=1,seq=w+1,ack=u+1
 等待计时器是为了防止B服务端没有接受到A的回复而一直开启，这样当B再次发送释放链接报文时，A还可以回复。
 7. 除了时间等待计时器, 还有一个保活计时器, 如果客户端突然出现故障, 为了不让服务器端白白等下去, 就设计这个计时器; 一段时间之后，发送一个探测报文段, 若连续发10个都没有回应, 就自动断开连接把。  
 

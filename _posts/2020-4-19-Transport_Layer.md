@@ -261,8 +261,8 @@ TCP连接的建立都是采用客户服务器方式。<br>
 ![](https://img-blog.csdnimg.cn/2020010418312417.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 ### 5.12.1 TCP连接时三次握手各状态
 ![](https://img-blog.csdn.net/20180628211256486?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3llcWlhbmcxOTkxMDQxMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-A(Client客户端):Close-->SYNSENT-->ESTABLISHED
-B(Server服务器端)：Close-->LISTEN-->SYNSRCVD-->ESTABLISHED
+A(Client客户端):Close-->SYNSENT-->ESTABLISHED<br>
+B(Server服务器端)：Close-->LISTEN-->SYNSRCVD-->ESTABLISHED<br>
 A-->SYN = 1, seq = x<br>
 B-->SYN = 1, ACK = 1, seq = y, ack= x + 1(等于A发送的seq值 + 1)<br>
 A-->ACK = 1, seq = x + 1, ack = y + 1(等于B发送的seq值 + 1)

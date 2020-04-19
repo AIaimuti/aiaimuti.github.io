@@ -193,38 +193,38 @@ telnet 192.168.80.100 3389 测试到远程计算机某个端口是否打开
 A的发送窗口是由B的接受窗口长度决定的。
 在没有收到B确认收到之前，A不能删掉滑动窗口内的内容。
 A可以持续给B发送，直到A的滑动窗口内数据都发了。
-
+![](https://img-blog.csdnimg.cn/20200104182910778.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 B收到后给A发确认收到的反馈ACK，序号是下一个应该发送的字节的序号，A收到后，就可以滑动窗口到对应的位置。例如B反馈ACK是7，那么A的滑窗可以移动到7位置，1-6删除。21-26可以发送。
-
+![](https://img-blog.csdnimg.cn/20200104182934629.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 B收到1-6之后，也开始滑窗，B的应用程序可以读取1-6的数据。B的滑窗继续接收。
-
+![](https://img-blog.csdnimg.cn/2020010418294182.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 以上是正常状态下的情况。如果出现丢失情况，例如7-9丢失，此时B反馈的ACK=7.因为10-12收到了，因此B发送SACK(选择性确认)，A只发送7-9.
+![](https://img-blog.csdnimg.cn/20200104182958855.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
-
-5.9.2 超时重传时间的确定
+### 5.9.2 超时重传时间的确定
 TCP美发送一个报文段，就对这个报文段设置一次计时器。只要计时器设置的重传时间到了，但是还没有收到数据，那么就重传这一报文段。
 RTTs(new) = (1 - alpha) x (RTTs(old)) + alpha x (new RTT样本)
 超时重传时间应略大于上面得出的加权平均往返时间RTTs。alpha推荐值是0.125.
 这个公式的目的是根据网速和带宽的实时情况调整往返时间。
 
-5.10 TCP如何实现流量控制P68
+## 5.10 TCP如何实现流量控制P68
 解决通信两端处理时间不一样的问题。通过实时调整滑窗尺寸的大小(尺寸甚至可以是0)来实现流量控制。接收端主动调整滑窗大小，发送端根据接收端发送的报文调整相应的滑窗。发送端也会定时发送报文向接收端确认滑窗信息，避免接收端发送的相关调整滑窗大小的报文丢失带来的影响。
 
-5.11 TCP如何避免网络拥塞
+## 5.11 TCP如何避免网络拥塞
 (1)出现资源拥塞的条件：对资源需求的总和>可用资源。
 (2)拥塞控制是一个全局性的过程，涉及到所有的主机，所有的路由区，以及与降低网络传输性能有关的所有因素。
 (3)流量控制往往指在给定的发送端和接收端之间的点对点通信量的控制，它所要做的就是抑制发送端发送数据的速率，以便使接收端来得及接收。
 
-5.11.1 拥塞控制起到的作用
+### 5.11.1 拥塞控制起到的作用
 红线和绿线之间是数据丢失内容。
-
-5.11.2 慢开始和拥塞避免
+![](https://img-blog.csdnimg.cn/20200104183007298.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
+### 5.11.2 慢开始和拥塞避免
 (1)发送方维持 拥塞窗口cwnd(congestion window)
 (2)发送方控制拥塞窗口的原则是：
 只要网络没有出现拥塞，拥塞窗口就再增大一些，以便把更多的分组发送出去；
 只要网络出现拥塞，拥塞窗口就减少一些，以减少注入到网络中的分组数。
 (3)慢开始算法的原理
-
+![](https://img-blog.csdnimg.cn/20200104183026234.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 (4)设置慢开始门限状态变量ssthresh
 慢开始门限状态变量ssthresh的用法如下：
 当cwnd<ssthresh时，使用慢开始算法；
@@ -237,28 +237,28 @@ RTTs(new) = (1 - alpha) x (RTTs(old)) + alpha x (new RTT样本)
 然后把拥塞窗口cwnd重新设置为1，执行慢开始算法。
 这样做的目的就是要迅速减少主机发送到网络中的分组数，使得发生拥塞的路由器有足够的时间吧队列中积压的分组处理完毕。
 (7)慢开始和拥塞避免算法的实现举例
-
+![](https://img-blog.csdnimg.cn/20200104183041722.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 ->拥塞避免并非指完全能够避免拥塞。利用以上的措施要完全避免网络拥塞还是不可能的。
 ->拥塞避免是说在拥塞避免阶段吧拥塞避免窗口控制为按线性规律增长，使网络比较不容易出现拥塞。
 
-5.11.3 快重传和快恢复
+### 5.11.3 快重传和快恢复
 快重传算法首先要求接收方每收到一个失序的报文段后就立即发出重复确认，这样做可以让发送方及早知道有报文段没有到达接收方。
 当发送端收到连续三个重复的确认时，就执行“乘法减少”算法，即把慢开始门限ssthresh减半，但拥塞窗口cwnd现在不设置为1，而是设置为慢开始门限ssthresh减半后的数值，然后开始执行拥塞避免算法(“加法增大”)，使拥塞窗口缓慢地线性增大。
+![](https://img-blog.csdnimg.cn/20200104183058971.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
-
-5.11.4 发送窗口的实际上限制
+### 5.11.4 发送窗口的实际上限制
 取接收方窗口和 拥塞窗口 这两个变量中的较小值。
 发送窗口的上限制 = min {rwnd, cwnd}.
 
-5.12 TCP传输连接管理
+## 5.12 TCP传输连接管理
 传输连接有三个阶段，即：连接建立，数据传送，连接释放。
 TCP连接的建立都是采用客户服务器方式。
 主动发起连接建立的应用进程叫做客户(client)。
 被动等待连接建立的应用进程叫做服务器(server)。
-
+![](https://img-blog.csdnimg.cn/20200104183113214.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 头两次握手除了确定双方都能联通外，还通知了双方的一些端口信息。
 第三次握手原因：假如把三次握手改成仅需要两次握手，死锁是可能发生的。作为例子，考虑计算机A和B之间的通信，假定A给B发送一个连接请求分组，B收到了这个分组，并发送了确认应答分组。按照两次握手的协定，B认为连接已经成功地建立了，可以开始发送数据分组。可是，B的应答分组在传输中被丢失的情况下，A将不知道B是否已准备好，A认为连接还未建立成功，将忽略B发来的任何数据分组，这样就形成了死锁。
-
+![](https://img-blog.csdnimg.cn/2020010418312417.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
 参考来源
 https://www.bilibili.com/video/av9876107?p=7<br>

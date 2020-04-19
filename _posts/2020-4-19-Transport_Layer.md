@@ -15,139 +15,139 @@ tags:
 ![](https://img-blog.csdnimg.cn/20200104182238490.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 传输层最大数据包是65535字节，而网络层数据最大只有1480字节。所以需要分段，但是只要分段，就有可能丢包，因为网络层不负责可靠传输。所以要求服务器和客户端保持会话，直到数据传输完成。
 
-->TCP(Transmission Control Protocol)传输控制协议
-应用场景：需要将要传输的文件分段传输时；就需要TCP协议来建立会话实现可靠传输；同时也有流量控制功能。(例如QQ传文件)
-查看会话 netstat -n
+->TCP(Transmission Control Protocol)传输控制协议<br>
+应用场景：需要将要传输的文件分段传输时；就需要TCP协议来建立会话实现可靠传输；同时也有流量控制功能。(例如QQ传文件)<br>
+查看会话 netstat -n<br>
 查看建立会话的进程 netstat -nb
 
-->UDP(User Data Protocol)用户数据报协议
+->UDP(User Data Protocol)用户数据报协议<br><br>
 应用场景：一个数据包就能完成数据通信；不需要建立会话和流量控制；多播/广播；是一种不可靠传输。(例如QQ聊天，屏幕广播)
 
 ## 5.2 传输层协议和应用层协议的关系
 
-(1)TCP和UDP协议和不同的端口即可对应一个应用层的协议。注意，53大部分是与UDP相连。
-(2)熟知数值一般为0-1023，登记端口号数值1024-49151，客户端口号数值为49152-65535.
-(3)常用的应用层协议使用的端口(号)：
-http = TCP + 80
-Https = TCP + 443
-RDP = TCP + 3389
-ftp = TCP + 21
-共享文件夹 = TCP + 445
-SMTP = TCP + 25
-POP3 = TCP + 110
-telnet = TCP + 23
-SQL = TCP + 1433
-DNS = UDP + 53
-(注意与4.6 的协议号的区别)
+(1)TCP和UDP协议和不同的端口即可对应一个应用层的协议。注意，53大部分是与UDP相连。<br>
+(2)熟知数值一般为0-1023，登记端口号数值1024-49151，客户端口号数值为49152-65535.<br>
+(3)常用的应用层协议使用的端口(号)：<br>
+http = TCP + 80<br>
+Https = TCP + 443<br>
+RDP = TCP + 3389<br>
+ftp = TCP + 21<br>
+共享文件夹 = TCP + 445<br>
+SMTP = TCP + 25<br>
+POP3 = TCP + 110<br>
+telnet = TCP + 23<br>
+SQL = TCP + 1433<br>
+DNS = UDP + 53<br>
+**(注意与4.6 的协议号的区别)**
 
 ## 5.3 服务和应用层协议的关系
-服务使用TCP或UDP的端口侦听客户端请求；
-客户端使用IP地址定位服务器，使用目标端口，定位服务；
-可以在服务器网卡上设置只开放必要的端口，实现服务器网络安全。
+服务使用TCP或UDP的端口侦听客户端请求；<br>
+客户端使用IP地址定位服务器，使用目标端口，定位服务；<br>
+可以在服务器网卡上设置只开放必要的端口，实现服务器网络安全。<br>
 防火墙是基于网卡的，只打开必要的端口，不必要的端口不允许接收数据，不影响服务的运行和监听。
 
 ## 5.3.1 如何在Windows上安装服务
-DNS服务
-Web服务
-SMTP
-POP3
+DNS服务<br>
+Web服务<br>y
+邮件发送SMTP<br>
+邮件接受POP3
 
-5.3.2 如何查看服务侦听的端口
-netstat -a
-netstat -an 以数字的形式查看端口
-netstat -n 查看建立的会话
-netstat -nb 查看建立会话的进程
+### 5.3.2 如何查看服务侦听的端口
+netstat -a<br>
+netstat -an 以数字的形式查看端口<br>
+netstat -n 查看建立的会话<br>
+netstat -nb 查看建立会话的进程<br>
 telnet 192.168.80.100 3389 测试到远程计算机某个端口是否打开
 
 
-5.3.3 如何更改服务使用默认端口
+### 5.3.3 如何更改服务使用默认端口
 可以迷惑病毒，使系统更加安全。
 
-5.3.4 如何设置Windows网络安全
+### 5.3.4 如何设置Windows网络安全
 设置本地连接 TCP/IP筛选
 
-5.4 传输层功能和端口范围
+## 5.4 传输层功能和端口范围
+![](https://img-blog.csdnimg.cn/20200104182348169.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
-
-5.4.1 传输层协议和网络层协议的主要区别
-网络层实现如何把数据包从这个地址(服务器)发送到另一个地址(服务器)。
+### 5.4.1 传输层协议和网络层协议的主要区别
+网络层实现如何把数据包从这个地址(服务器)发送到另一个地址(服务器)。<br>
 传输层实现如何让这个应用程序找到对应计算机的应用程序(相对应的应用程序实现逻辑通信)。
+![](https://img-blog.csdnimg.cn/20200104182407430.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
-
-5.4.2 传输层的主要功能
-(1)传输层为应用进程之间提供了端到端的逻辑通信(但网络层是为主机之间提供逻辑通信)。
-(2)传输层还要对收到的报文进行差错检验。
+### 5.4.2 传输层的主要功能
+(1)传输层为应用进程之间提供了端到端的逻辑通信(但网络层是为主机之间提供逻辑通信)。<br>
+(2)传输层还要对收到的报文进行差错检验。<br>
 (3)传输层提供面向连接(TCP)和无连接(UDP)的服务。
 
-5.4.3 传输层的端口
-
-(1)TCP的端口
-端口用一个16位端口号进行标志。
+### 5.4.3 传输层的端口
+![](https://img-blog.csdnimg.cn/20200104182425652.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
+(1)TCP的端口<br>
+端口用一个16位端口号进行标志。<br>
 端口号只具有本地意义，即端口号只是为了标志本计算机应用层的各进程。在Internet中不同计算机的相同端口号是没有联系的(最好不要有冲突)。
 
-5.5 UDP协议
-(1)UDP是无连接的，即发送数据之前不需要建立连接。
-(2)UDP使用尽最大努力交付，即不保证可靠交付，同时也不使用拥塞控制。
-(3)UDP是面向报文的，适合多媒体通信的要求。
-(4)UDP支持一对一，一对多，多对一，多对多交互通信。
+## 5.5 UDP协议
+(1)UDP是无连接的，即发送数据之前不需要建立连接。<br>
+(2)UDP使用尽最大努力交付，即不保证可靠交付，同时也不使用拥塞控制。<br>
+(3)UDP是面向报文的，适合多媒体通信的要求。<br>
+(4)UDP支持一对一，一对多，多对一，多对多交互通信。<br>
 (5)UDP首部开销小，只有8个字节。
+![](https://img-blog.csdnimg.cn/20200104182437891.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
-
-5.5.1 UDP的首部格式
-
-首部中的长度指的是UDP用户数据报的长度(首部+数据)。
+### 5.5.1 UDP的首部格式
+![](https://img-blog.csdnimg.cn/20200104182453304.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
+首部中的长度指的是UDP用户数据报的长度(首部+数据)。<br>
 伪首部用于检验和，我的理解是伪首部是IP数据包首部的后部分。
+![](https://img-blog.csdnimg.cn/20200104182503206.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
-
-5.6 TCP协议
-(1)TCP是面向连接的传输层协议。(三次握手)
-(2)每一条TCP连接智能有两个端点(endpoint)，每一条TCP连接只能时点对点的(一对一)。
-(3)TCP提供可靠交付的服务。(确保不丢包)
-(4)TCP提供全双工通信。(因为需要接收端的反馈，例如如果接收端处理不过来，可让发送端慢一点，流量控制)
+## 5.6 TCP协议
+(1)TCP是面向连接的传输层协议。(三次握手)<br>
+(2)每一条TCP连接智能有两个端点(endpoint)，每一条TCP连接只能时点对点的(一对一)。<br>
+(3)TCP提供可靠交付的服务。(确保不丢包)<br>
+(4)TCP提供全双工通信。(因为需要接收端的反馈，例如如果接收端处理不过来，可让发送端慢一点，流量控制)<br>
 (5)面向字节流。
-
+![](https://img-blog.csdnimg.cn/20200104182520945.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 如果要传输一个比较大的数据，首先一次只会传输一小块，这个数据块的大小是没有规律的。加上数据包数据帧的头，发送给接收端，接收端去掉首部，再次拼接。
 
-5.6.1 TCP的连接
-(1)TCP把连接作为最基本的抽象。
-(2)每一条TCP连接有两个端点。
-(3)TCP连接的端点不是主机，不是主机的IP地址，不是应用程序，也不是传输层协议端口，TCP连接的端点叫 套接字(socket).
-->套接字socket = (IP地址:端口号)
-->每一条TCP连接唯一地被通信两端的两个套接字所确定，即：
-->TCP连接 ::= {socket1, socket2} = {(IP1:port1), (IP2:port2)}
+### 5.6.1 TCP的连接
+(1)TCP把连接作为最基本的抽象。<br>
+(2)每一条TCP连接有两个端点。<br>
+(3)TCP连接的端点不是主机，不是主机的IP地址，不是应用程序，也不是传输层协议端口，TCP连接的端点叫套接字(socket).<br>
+->套接字socket = (IP地址:端口号)<br>
+->每一条TCP连接唯一地被通信两端的两个套接字所确定，即：<br>
+->TCP连接 ::= {socket1, socket2} = {(IP1:port1), (IP2:port2)}<br>
 (4)端口号拼接到IP地址即构成了套接字。
 
-5.7 TCP如何实现可靠传输
+## 5.7 TCP如何实现可靠传输
 (1)可靠传输的工作原理——停止等待协议。
-
-->在发送完一个分组后，必须暂时保留已发送的分组的副本。
-->分组和确认分组都必须进行编号。
-->超时计时器的重传时间应当比数据在分组传输的平均往返时间更长一些。
+![](https://img-blog.csdnimg.cn/20200104182536235.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
+->在发送完一个分组后，必须暂时保留已发送的分组的副本。<br>
+->分组和确认分组都必须进行编号。<br>
+->超时计时器的重传时间应当比数据在分组传输的平均往返时间更长一些。<br>
 (2)确认丢失和确认迟到
-
-(3)可靠通信的实现
-->使用上述的确认和重传机制，微秒就可以在不可靠的传输网络上实现可靠的通信。
-->这种可靠传输的协议常称为自动重传请求ARQ(Automatic Repeat reQuest)。
-->ARQ表明重传的请求是自动进行的。接收方不需要请求发送方重传某个出错的分组。
+![](https://img-blog.csdnimg.cn/20200104182551725.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
+(3)可靠通信的实现<br>
+->使用上述的确认和重传机制，微秒就可以在不可靠的传输网络上实现可靠的通信。<br>
+->这种可靠传输的协议常称为自动重传请求ARQ(Automatic Repeat reQuest)。<br>
+->ARQ表明重传的请求是自动进行的。接收方不需要请求发送方重传某个出错的分组。<br>
 ->缺点，信道利用率低。
-
+![](https://img-blog.csdnimg.cn/202001041825590.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 ->信道利用率U
-
-(4)流水线传输(发送方)
+![](https://img-blog.csdnimg.cn/20200104182617681.png)
+(4)流水线传输(发送方)<br>
 发送方可连续发送多个分组，不必每发完一个分组就停顿下来等待对方的确认。由于信道上一直有数据不间断的传送，这种传输方式可获得很高的信道利用率。
-
+![](https://img-blog.csdnimg.cn/20200104182630295.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 (5)连续ARQ协议
-
+![](https://img-blog.csdnimg.cn/20200104182635697.png)
 如果1确认收到了，则滑动窗口。
-
-如果12收到了，3没有收到，则滑动窗口会会回溯到3位置，重新发送。
-(6)累计确认(接收方)
-接收方一般采用累计确认的方式。
-优点：容易实现，信道利用率高。
+![](https://img-blog.csdnimg.cn/20200104182647647.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
+如果12收到了，3没有收到，则滑动窗口会会回溯到3位置，重新发送。<br>
+(6)累计确认(接收方)<br>
+接收方一般采用累计确认的方式。<br>
+优点：容易实现，信道利用率高。<br>
 缺点：不能向发送方反映出接收方已经正确收到的所有分组的信息。
 
-5.8 TCP报文段的首部格式
-
+## 5.8 TCP报文段的首部格式
+![](https://img-blog.csdnimg.cn/20200104182702877.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 (1)源端口：2个字节16位。
 (2)目的端口：2个字节16位。
 (3)序号：当前数据的第一个字节在整个文件中的序号。
@@ -164,31 +164,31 @@ telnet 192.168.80.100 3389 测试到远程计算机某个端口是否打开
 (14)检验和：
 (15)紧急指针：只有URG为1才有用。
 
-5.8.1 抓包分析P64
+### 5.8.1 抓包分析P64
 (1)
-
+![](https://img-blog.csdnimg.cn/2020010418271350.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 第一步，ARP，建立可靠传输
 第二步，UDP(DNS同时占用UDP和TCP的53端口)，域名解析
 第三步，TCP，识别网关MAC地址
 
 (2)cmd打开控制台如下，当前是建立了2个会话。
-
+![](https://img-blog.csdnimg.cn/20200104182730288.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 (3)浅蓝：请求的数据包；深蓝：得到的结果；
 192是我方地址；8是服务器地址；
-
+![](https://img-blog.csdnimg.cn/20200104182741822.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
 (4)两个SYN是双方确认建立了会话，MSS意思是最大数据包1460字节，web端(219.148.36.48)最多能缓存win=64240字节，我端(192.168.80.63)最多能缓存win=65535字节,如果某一方发了另一方win字节个数据对方都没有确认，那么就暂停。标记为TCP这三行(12,13,14)，不光是建立对话，还协商了一些参数。
-
+![](https://img-blog.csdnimg.cn/20200104182755319.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 (5)第15行，开始正式通信，HTTP。GET的意思是我要访问这个网站了。白框内写着各个层的数据首部的结构。
-
+![](https://img-blog.csdnimg.cn/20200104182804430.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 目标端口Src Port是80，源端口Dst Port是1057，序号Sep是1，确认号Ack是1，数据部分长度是1-203字节。
-
+![](https://img-blog.csdnimg.cn/20200104182816908.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 (6)219->192是发送网页信息，192->219是确认反馈。注意，16第一次发送数据和19反馈接收是没有数据len=0。
-
+![](https://img-blog.csdnimg.cn/20200104182826925.png)
 从建立会话，到传输数据到确认反馈的一个过程如下，15-19。
+![](https://img-blog.csdnimg.cn/2020010418283931.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2l3YW5kZXJ1,size_16,color_FFFFFF,t_70)
 
-
-5.9 TCP如何实现可靠传输P67
+## 5.9 TCP如何实现可靠传输P67
 5.9.1 以字节为单位的滑动窗口技术
 A的发送窗口是由B的接受窗口长度决定的。
 在没有收到B确认收到之前，A不能删掉滑动窗口内的内容。

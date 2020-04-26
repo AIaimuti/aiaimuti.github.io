@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      控制移动+完善运动+镜头摇臂+自制移动组件
+title:      控制移动+完善运动+镜头摇臂+自制移动组件+镜头调整
 subtitle:   基础内容
 date:       2020-4-24
 author:     AIaimuti
@@ -11,11 +11,20 @@ tags:
 ---
 
 ## 控制移动
-让0号玩家拥有控制权
-`AutoPossessPlayer = EAutoReceiveInput::Player0;`
-先Project Setting添加轴映射-->添加Components/InputComponent.h头文件-->SetupPlayerInputComponent中绑定函数
+**功能需求:** 能够通过WASD进行简单移动<br>
+### 移动准备
+1)先Project Setting添加轴映射-->添加Components/InputComponent.h头文件-->SetupPlayerInputComponent中绑定函数<br>
+2).h文件中声明
+```
+void MoveForward(float Value);
 
-### MoveForward和MoveRight
+void MoveRight(float Value);
+```
+3).cpp文件中定义
+在构造函数中，让0号玩家拥有控制权
+`AutoPossessPlayer = EAutoReceiveInput::Player0;`
+
+移动函数
 ```
 void ACreature::MoveForward(float Value)
 {
@@ -29,9 +38,11 @@ void ACreature::MoveRight(float Value)
 ```
 将速度限制到-1到1 * MaxSpeed
 `CurrentVelocity.X = FMath::Clamp(Value, -1.f, 1.f)* MaxSpeed;`
-FMath::Clamp
-介于最大值最小值之间
-### 移动实现
+
+FMath::Clamp(Value,min,max)
+限制Value介于max和min之间
+
+在Tick函数中
 ```
 void ACreature::Tick(float DeltaTime)
 {
@@ -42,9 +53,10 @@ void ACreature::Tick(float DeltaTime)
 
 }
 ```
-在Tick中实现
+
 
 ## 完善运动
+**功能需求:** 简单的写法没有考虑脸的朝向，这种写法考虑了脸的朝向，角色转身后也是脸的正向
 AddInputVector:将给定向量添加到世界空间的累积输入中。输入向量的大小通常在0到1之间。它们在帧中累积，然后在运动更新期间用作加速度。
 ```
 virtual void AddInputVector
@@ -76,10 +88,10 @@ void ACreature::MoveRight(float Value)
 	}
 }
 ```
-这种写法考虑了脸的朝向，角色转身后也是脸的正向
 
 ## 摄像机弹簧臂
-镜头摇臂以球形组件为依托，所以先配置球形碰撞体
+**功能需求:** 摄像机动态追踪物体，并且有一定延迟效果。<br>
+
 ### 设置球形碰撞体配置
 1).h文件声明
 ```
@@ -170,8 +182,9 @@ Camera->SetupAttachment(SpringArmComp, USpringArmComponent::SocketName);
 ```
 
 ## 自制动作组件
-### 自制动作组件准备
 **功能需求:** 球体碰撞到墙壁时，沿边移动。<br>
+
+### 自制动作组件准备
 1)创建一个继承自UPawnMovementComponent的C++类<br>
 `class UGDC_API UMyPawnMovementComponent : public UPawnMovementComponent`<br>
 
@@ -270,3 +283,4 @@ if (!DeltaMovement.IsNearlyZero())
 }
 ```
 
+## 控制移动

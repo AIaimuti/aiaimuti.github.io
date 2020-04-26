@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      UE4 C++简单运动实现及完善
+title:      控制移动+完善运动+镜头摇臂+自制移动组件
 subtitle:   基础内容
 date:       2020-4-24
 author:     AIaimuti
@@ -44,31 +44,76 @@ void ACreature::Tick(float DeltaTime)
 ```
 在Tick中实现
 
-## 完善运动————镜头摇臂+自制移动组件
-### 球形组件配置
+## 完善运动
+AddInputVector:将给定向量添加到世界空间的累积输入中。输入向量的大小通常在0到1之间。它们在帧中累积，然后在运动更新期间用作加速度。
+```
+virtual void AddInputVector
+(
+    FVector WorldVector,
+    bool bForce
+)
+```
+WorldVector:在世界空间中应用输入的方向
+bForce:如果为true，则始终添加输入
+
+GetActorForwardVector:获取Actor在世界空间的正向(X)方向，取值-1，0，1
+GetActorRightVector：获取Actor在世界空间的右向(Y)方向，取值-1，0，1
+```
+void ACreature::MoveForward(float Value)
+{
+	if (MovementComp)
+	{
+		MovementComp->AddInputVector(GetActorForwardVector() * Value);
+	}
+
+}
+
+void ACreature::MoveRight(float Value)
+{
+	if (MovementComp)
+	{
+		MovementComp->AddInputVector(GetActorRightVector() * Value);
+	}
+}
+```
+这种写法考虑了脸的朝向，角色转身后也是脸的正向
+
+## 摄像机弹簧臂
+镜头摇臂以球形组件为依托，所以先配置球形碰撞体
+### 设置球形碰撞体配置
+1).h文件声明
+```
+UPROPERTY(VisibleAnywhere)
+	class USphereComponent * SphereCollision;
+```
+2).cpp配置
+添加头文件：
+#include "Components/SphereComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Uobject/ConstructorHelpers.h"
 ```
 //实例化球形组件
-SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
+SphereCollision = CreateDefaultSubobject<USphereComponent>(TEXT("SphereCollision"));
 //设置半径
-SphereComp->SetSphereRadius(80);
+SphereCollision->SetSphereRadius(80);
 //设置初始碰撞类型
-SphereComp->SetCollisionProfileName(TEXT("Block All"));
+SphereCollision->SetCollisionProfileName(TEXT("Block All"));
 //设置球形组件是否隐藏，不设置的话默认隐藏
-SphereComp->SetHiddenInGame(false);
+SphereCollision->SetHiddenInGame(false);
 //设置根组件
-SetRootComponent(SphereComp);
+SetRootComponent(SphereCollision);
 ```
 #### ConstructorHelpers直接指定并添加静态网格体资源
 直接指定网格资源采用如下方式，需要添加Uobject/ConstructorHelpers.h头文件。
 TEXT内部引用的路径：打开actor蓝图-->Static Mesh点放大镜打开内容浏览器-->在内容浏览器中右键点击所选物体-->点击Copy Reference
 ```
-//直接指定静态网格体资源
+//使用ConstructorHelpers找指定位置的静态网格体资源给MeshComponentAsset
 static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshComponentAsset
         (TEXT("StaticMesh'/Game/StarterContent/Shapes/Shape_Sphere.Shape_Sphere'"));
-//如果获取成功
+
 if (MeshComponentAsset.Succeeded())
 	{
-        //
+        //如果寻找成功，放到静态网格体中，并设置位置
 		MeshComponent->SetStaticMesh(MeshComponentAsset.Object);
 		MeshComponent->SetRelativeLocation(FVector(0.f, 0, -50));
 	}
@@ -78,11 +123,13 @@ if (MeshComponentAsset.Succeeded())
 ### 摄像机弹簧臂配置
 设置了弹簧臂长度、位置以及作为谁的附件，并开启摄像机延迟<br>
 #### SetupAttachment函数
+```
 void SetupAttachment
 (
     USceneComponent * InParent,
     FName InSocketName
 )
+```
 InParent：指定依附对象
 InSocketName：指定插槽名称
 
@@ -90,29 +137,40 @@ InSocketName：指定插槽名称
 `Camera->SetupAttachment(SpringArmComp, USpringArmComponent::SocketName);`
 
 #### 具体实现
+1).h文件声明
 ```
-#if 1
-	//实例化弹簧臂组件
-	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComp"));
-	//弹簧臂组件组件附着在根组件
-	SpringArmComp->SetupAttachment(RootComponent);
-	//弹簧臂组件长度设为400
-	SpringArmComp->TargetArmLength = 400;
-	//设置弹簧臂组件位置
-	SpringArmComp->SetRelativeRotation(FRotator(-45.f, 0, 0));
-	//开启摄像机延迟
-	SpringArmComp->bEnableCameraLag = true;
-	//设置摄像机延迟速度
-	SpringArmComp->CameraLagSpeed = 4;
-#endif
-	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-#if 1
-	//摄像机绑定弹簧臂，位置是插槽的位置，如果没有指定，摄像机会绑定在弹簧臂自身原点的位置
-	//弹簧臂的另一端自带插槽
-	Camera->SetupAttachment(SpringArmComp, USpringArmComponent::SocketName);
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
+	class UCameraComponent * Camera;
+
+UPROPERTY(VisibleAnywhere)
+	class USpringArmComponent * SpringArmComp;
 ```
-### 自制动作组件
-#### 自制动作组件准备
+2).cpp文件配置
+添加头文件：
+#include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
+```
+//实例化弹簧臂组件
+SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComp"));
+//弹簧臂组件组件附着在根组件
+SpringArmComp->SetupAttachment(RootComponent);
+//弹簧臂组件长度设为400
+SpringArmComp->TargetArmLength = 400;
+//设置弹簧臂组件位置
+SpringArmComp->SetRelativeRotation(FRotator(-45.f, 0, 0));
+//开启摄像机延迟
+SpringArmComp->bEnableCameraLag = true;
+//设置摄像机延迟速度
+SpringArmComp->CameraLagSpeed = 4;
+
+Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+//摄像机绑定弹簧臂，位置是插槽的位置，如果没有指定，摄像机会绑定在弹簧臂自身原点的位置
+//弹簧臂的另一端自带插槽
+Camera->SetupAttachment(SpringArmComp, USpringArmComponent::SocketName);
+```
+
+## 自制动作组件
+### 自制动作组件准备
 **功能需求:** 球体碰撞到墙壁时，沿边移动。<br>
 1)创建一个继承自UPawnMovementComponent的C++类<br>
 `class UGDC_API UMyPawnMovementComponent : public UPawnMovementComponent`<br>
@@ -123,7 +181,7 @@ UPawnMovementComponent-->UNavMovementComponent-->UMovementComponent<br>
 UMovementComponent中有函数TickComponent<br>
 `virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;`
 
-3)Creature中声明自定义运动组件<br>
+3)Creature中声明自制运动组件<br>
 Creature.h文件中声明<br>
 首先定义UMyPawnMovementComponent类的MovementComp变量；<br>
 覆写UPawnMovementComponent的GetMovementComponent()函数，返回我们指定的运动组件来控制Pawn的运动
@@ -133,10 +191,11 @@ UPROPERTY(VisibleAnywhere)
 
 virtual UPawnMovementComponent * GetMovementComponent() const override;
 ```
-
 Creature.cpp文件中<br>
 实例化继承后的UMyPawnMovementComponent类MovementComp，并指定根组件作为我们移动和更新的标准<br>
-GetMovementComponent()中使用我们自定义的移动组件
+GetMovementComponent()中使用我们自定义的移动组件<br>
+并添加头文件：
+#include "..\Public\MyPawnMovementComponent.h"
 ```
 MovementComp = CreateDefaultSubobject<UMyPawnMovementComponent>(TEXT("MovementComp"));
 //设置移动和更新的标准，以根组件我们移动和更新的标准
@@ -147,10 +206,10 @@ UPawnMovementComponent * ACreature::GetMovementComponent() const
 	return MovementComp;
 }
 ```
-#### 自制动作组件内容
-条件判断-->获取运动向量-->sweep扫描并实现溜边运动<br>
+### 自制动作组件内容
+条件判断-->获取运动向量-->sweep扫描并实现溜边运动
 
-**条件判断：**<br>
+#### 条件判断
 PawnOwner：运动是必须要有Owner的，没有会返回空向量<br>
 UpdatedComponent：UpdatedComponent指定以某个组件的运动和更新视为整体的运动和更新，在Creature.cpp 87行设置了以根组件为准<br>
 ShouldSkipUpdate(DeltaTime):允许自动跳过更新，有时候没有对Pawn进行操作，就不需要对其更新
@@ -164,7 +223,7 @@ if (!PawnOwner || !UpdatedComponent || ShouldSkipUpdate(DeltaTime))
     return;
 }
 ```
-**获取运动向量：**
+#### 获取运动向量
 ConsumeInputVector():消费者，消费运动向量<br>
 GetClampedToMaxSize(1): 约束最大长度为1
 ```
@@ -175,7 +234,7 @@ FVector DeltaMovement
     = ConsumeInputVector().GetClampedToMaxSize(1) * DeltaTime * 150;
 ```
 
-**sweep扫描并实现溜边运动：**
+#### sweep扫描并实现溜边运动
 IsNearlyZero:在指定小数点阈值内输出true,用于容错<br>
 SafeMoveUpdatedComponent：进行运动的试算，并开启sweep扫描，有阻挡会输出撞击信息<br>
 HitResult.IsValidBlockingHit：检测是有有效的撞击<br>
@@ -210,38 +269,4 @@ if (!DeltaMovement.IsNearlyZero())
     }
 }
 ```
-**运动函数改变**
-AddInputVector:将给定向量添加到世界空间的累积输入中。输入向量的大小通常在0到1之间。它们在帧中累积，然后在运动更新期间用作加速度。
-```
-virtual void AddInputVector
-(
-    FVector WorldVector,
-    bool bForce
-)
-```
-WorldVector:在世界空间中应用输入的方向
-bForce:如果为true，则始终添加输入
 
-GetActorForwardVector:获取Actor在世界空间的正向(X)方向，取值-1，0，1
-GetActorRightVector：获取Actor在世界空间的右向(Y)方向，取值-1，0，1
-```
-void ACreature::MoveForward(float Value)
-{
-	//CurrentVelocity.X = FMath::Clamp(Value, -1.f, 1.f)* MaxSpeed;
-	if (MovementComp)
-	{
-		MovementComp->AddInputVector(GetActorForwardVector() * Value);
-	}
-
-}
-
-void ACreature::MoveRight(float Value)
-{
-	//CurrentVelocity.Y = FMath::Clamp(Value, -1.f, 1.f)* MaxSpeed;
-	if (MovementComp)
-	{
-		MovementComp->AddInputVector(GetActorRightVector() * Value);
-	}
-}
-```
-这种写法考虑了脸的朝向，角色转身后也是脸的正向

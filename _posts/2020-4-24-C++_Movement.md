@@ -20,11 +20,11 @@ void MoveForward(float Value);
 
 void MoveRight(float Value);
 ```
-3).cpp文件中定义
+3).cpp文件中定义<br>
 在构造函数中，让0号玩家拥有控制权
 `AutoPossessPlayer = EAutoReceiveInput::Player0;`
 
-移动函数
+### 移动函数
 ```
 void ACreature::MoveForward(float Value)
 {
@@ -56,7 +56,7 @@ void ACreature::Tick(float DeltaTime)
 
 
 ## 完善运动
-**功能需求:** 简单的写法没有考虑脸的朝向，这种写法考虑了脸的朝向，角色转身后也是脸的正向
+**功能需求:** 简单的写法没有考虑脸的朝向，这种写法考虑了脸的朝向，角色转身后也是脸的正向<br>
 AddInputVector:将给定向量添加到世界空间的累积输入中。输入向量的大小通常在0到1之间。它们在帧中累积，然后在运动更新期间用作加速度。
 ```
 virtual void AddInputVector
@@ -65,10 +65,10 @@ virtual void AddInputVector
     bool bForce
 )
 ```
-WorldVector:在世界空间中应用输入的方向
+WorldVector:在世界空间中应用输入的方向<br>
 bForce:如果为true，则始终添加输入
 
-GetActorForwardVector:获取Actor在世界空间的正向(X)方向，取值-1，0，1
+GetActorForwardVector:获取Actor在世界空间的正向(X)方向，取值-1，0，1<br>
 GetActorRightVector：获取Actor在世界空间的右向(Y)方向，取值-1，0，1
 ```
 void ACreature::MoveForward(float Value)
@@ -98,10 +98,10 @@ void ACreature::MoveRight(float Value)
 UPROPERTY(VisibleAnywhere)
 	class USphereComponent * SphereCollision;
 ```
-2).cpp配置
-添加头文件：
-#include "Components/SphereComponent.h"
-#include "Components/StaticMeshComponent.h"
+2).cpp配置<br>
+添加头文件：<br>
+#include "Components/SphereComponent.h"<br>
+#include "Components/StaticMeshComponent.h"<br>
 #include "Uobject/ConstructorHelpers.h"
 ```
 //实例化球形组件
@@ -116,7 +116,7 @@ SphereCollision->SetHiddenInGame(false);
 SetRootComponent(SphereCollision);
 ```
 #### ConstructorHelpers直接指定并添加静态网格体资源
-直接指定网格资源采用如下方式，需要添加Uobject/ConstructorHelpers.h头文件。
+直接指定网格资源采用如下方式，需要添加Uobject/ConstructorHelpers.h头文件。<br>
 TEXT内部引用的路径：打开actor蓝图-->Static Mesh点放大镜打开内容浏览器-->在内容浏览器中右键点击所选物体-->点击Copy Reference
 ```
 //使用ConstructorHelpers找指定位置的静态网格体资源给MeshComponentAsset
@@ -142,13 +142,12 @@ void SetupAttachment
     FName InSocketName
 )
 ```
-InParent：指定依附对象
+InParent：指定依附对象<br>
 InSocketName：指定插槽名称
 
 弹簧臂一段连接物体原点，另一端自带插槽。这里将摄像机绑定弹簧臂的插槽，不然摄像机会绑定到弹簧臂的原点
 `Camera->SetupAttachment(SpringArmComp, USpringArmComponent::SocketName);`
-
-#### 具体实现
+#### 配置
 1).h文件声明
 ```
 UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
@@ -157,9 +156,9 @@ UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
 UPROPERTY(VisibleAnywhere)
 	class USpringArmComponent * SpringArmComp;
 ```
-2).cpp文件配置
-添加头文件：
-#include "Camera/CameraComponent.h"
+2).cpp文件配置<br>
+添加头文件：<br>
+#include "Camera/CameraComponent.h"<br>
 #include "GameFramework/SpringArmComponent.h"
 ```
 //实例化弹簧臂组件
@@ -207,7 +206,7 @@ virtual UPawnMovementComponent * GetMovementComponent() const override;
 Creature.cpp文件中<br>
 实例化继承后的UMyPawnMovementComponent类MovementComp，并指定根组件作为我们移动和更新的标准<br>
 GetMovementComponent()中使用我们自定义的移动组件<br>
-并添加头文件：
+并添加头文件：<br>
 #include "..\Public\MyPawnMovementComponent.h"
 ```
 MovementComp = CreateDefaultSubobject<UMyPawnMovementComponent>(TEXT("MovementComp"));
@@ -287,7 +286,7 @@ if (!DeltaMovement.IsNearlyZero())
 **功能需求:** 可以对视角进行左右和上下调整<br>
 
 ### 调整镜头准备
-1)先Project Setting添加轴映射，CameraPitch-->鼠标Y(Y一般是-1)，CameraYaw-->鼠标X(X一般是1)
+1)先Project Setting添加轴映射，CameraPitch-->鼠标Y(Y一般是-1)，CameraYaw-->鼠标X(X一般是1)<br>
 2).h文件中设置
 ```
 //视角调整函数

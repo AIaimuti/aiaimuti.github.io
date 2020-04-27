@@ -45,6 +45,7 @@ UFUNCTION(BlueprintNativeEvent, BlueprintPure)
 在蓝图中使用GetSpawnPoint和前面声明好的PawnToSpawn连接到spawnActor就可以完成功能<br>
 同样直接调用SpawnMyPawn函数也可以生成Actor<br>
 Spawn Emitter at Location 使用特效
+右键transfrom参数，可以复制
 ```
 ASpawnVolume::ASpawnVolume()
 {

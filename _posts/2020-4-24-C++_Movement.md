@@ -284,5 +284,59 @@ if (!DeltaMovement.IsNearlyZero())
 ```
 
 ## 调整镜头
+**功能需求:** 可以对视角进行左右和上下调整<br>
+
+### 调整镜头准备
+1)先Project Setting添加轴映射，CameraPitch-->鼠标Y(Y一般是-1)，CameraYaw-->鼠标X(X一般是1)
+2).h文件中设置
+```
+//视角调整函数
+void AngleAdjustment();
+//获取鼠标Y输入	
+void CameraPitch(float Value);
+//获取鼠标X输入
+void CameraYaw(float Value);
+//记录鼠标变化量
+FVector2D CameraInput;
+```
+3).cpp文件中配置
+```
+void ACreature::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	AngleAdjustment();
+}
+```
+```
+void ACreature::AngleAdjustment()
+{
+	//获取当前Actor的旋转状态
+	FRotator NewRotation = GetActorRotation();
+	//将鼠标yaw输入加到NewRotation.Yaw中
+	NewRotation.Yaw += CameraInput.X;
+	//更新Actor的旋转状态
+	SetActorRotation(NewRotation);
+
+	//获取当前弹簧臂的旋转状态
+	FRotator NewSpringArmRotation = SpringArmComp->GetComponentRotation();
+	//将鼠标pitch输入加到NewRotation.Pitch中
+	NewSpringArmRotation.Pitch += CameraInput.Y;
+	//将NewRotation.Pitch限制到(-80.f, -15.f)之间
+	NewSpringArmRotation.Pitch = FMath::Clamp(NewSpringArmRotation.Pitch, -80.f, -15.f);
+	//更新弹簧臂的旋转状态
+	SpringArmComp->SetWorldRotation(NewSpringArmRotation);
+}
 
 
+void ACreature::CameraPitch(float Value)
+{
+	//获取鼠标Y输入
+	CameraInput.Y = Value;
+}
+
+void ACreature::CameraYaw(float Value)
+{
+	//获取鼠标X输入
+	CameraInput.X = Value;
+}
+```

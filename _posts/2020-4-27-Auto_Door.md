@@ -2,7 +2,7 @@
 layout:     post
 title:      UE4 C++入门
 subtitle:   基础内容
-date:       2020-4-23
+date:       2020-4-27
 author:     AIaimuti
 header-img: img/post-bg-open-source-blog.jpg
 catalog: true
@@ -149,3 +149,7 @@ void AFloorSwitch::UpdateSwitchLocation(float Z)
 	FloorSwitch->SetWorldLocation(NewLocation);
 }
 ```
+### 替换机关和门
+选中物体-->在World Outliner中右键选中的物体Browse to Asset-->在资源浏览器中选中物体-->蓝图中向左箭头
+选中物体右键Pilot + 物体名字，可以控制该物体飞
+transform的数值可以复制

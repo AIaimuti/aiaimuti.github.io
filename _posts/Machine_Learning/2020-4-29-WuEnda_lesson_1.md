@@ -10,8 +10,8 @@ tags:
     - 机器学习
 ---
 
-[引言(Introduction)](#引言(Introduction))
-[1.1 欢迎](#1.1-欢迎)
+[引言(Introduction)](##引言(Introduction))
+[1.1 欢迎](###1.1-欢迎)
 
 
 ## 引言(Introduction)

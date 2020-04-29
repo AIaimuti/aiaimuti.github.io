@@ -12,7 +12,7 @@ tags:
 
 ##  生成Actor
 ### 生成Actor配置
-**功能需求：**在指定区域内生成若干个Actor。
+**功能需求：** 在指定区域内生成若干个Actor。
 BlueprintNativeEvent 需要我们做一个函数原生的实现，但是这个实现可以随时被覆盖<br>
 当在蓝图中使用时，会搜索出一个蓝图和一个事件，使用事件会覆盖函数功能，直接使用函数时有效的<br>
 TSubclassOf<class ACreature> PawnToSpawn 创建一个ACreature的子类PawnToSpawn<br>

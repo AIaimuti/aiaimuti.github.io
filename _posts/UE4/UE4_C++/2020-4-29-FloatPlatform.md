@@ -9,7 +9,7 @@ catalog: true
 tags:
     - UE4 C++入门系列
 ---
-![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/Video/FloatPlatform.gif)
+![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/Gif/FloatPlatform_out.gif)
 
 今天要实现的功能是一个飞盘的浮动，这个关卡在游戏中很常见，也很有意思。
 ## 浮动飞盘

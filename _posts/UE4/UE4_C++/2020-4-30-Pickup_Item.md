@@ -9,7 +9,8 @@ catalog: true
 tags:
     - UE4 C++入门系列
 ---
-![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/Gif/Pickup.gif?raw=true)
+
+<iframe src="//player.bilibili.com/player.html?aid=840553586&bvid=BV1T54y1X7df&cid=186152489&page=1" width="720" height="480" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 今天做一些物品的拾取，并加入一些简单的特效<br>
 ## 拾取物品

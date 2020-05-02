@@ -9,7 +9,9 @@ catalog: true
 tags:
     - UE4 C++入门系列
 ---
-今天做一些物品的拾取，并加入一些简单的特效么<br>
+![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/Gif/Pickup.gif?raw=true)
+
+今天做一些物品的拾取，并加入一些简单的特效<br>
 ## 拾取物品
 ## 拾取物品准备
 物品拾取需要触发函数，这里我们也是自定义的碰撞函数<br>

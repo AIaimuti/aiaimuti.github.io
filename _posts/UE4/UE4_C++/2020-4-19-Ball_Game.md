@@ -124,7 +124,7 @@ CameraArmComp->SetupAttachment(SphereMeshComp);
 CameraComp = CreateAbstractDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
 CameraComp->SetupAttachment(CameraArmComp);
 ```
-![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/img/UE4/Component.png)
+![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/img/UE4/Component.png?raw=true)
 
 
 ## 移动和加速功能

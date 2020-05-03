@@ -206,7 +206,8 @@ void ASphereBase::SpeedLow()
 	SphereSpeed = SpeedMin;
 }
 ```
-![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/img/UE4/Axis.png)
+![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/img/UE4/Axis.png?raw=true)
+
 3)实现按键放开了也会按指定方向移动，判断是否开启IsInput 且小球是否离开原点，如果是，小球的速度就是持续的。<br>
 然后在.h文件中声明和.cpp文件中定义
 ```

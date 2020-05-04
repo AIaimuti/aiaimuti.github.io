@@ -9,7 +9,7 @@ catalog: true
 tags:
     - UE4 C++入门系列
 ---
-<iframe src="//player.bilibili.com/player.html?aid=413093542&bvid=BV12V411d79e&cid=187006034&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe> <br>
+<iframe src="//player.bilibili.com/player.html?aid=413093542&bvid=BV12V411d79e&cid=187006034&page=1" width="720" height="480" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe> <br>
 
 今天要做的一个功能是在指定区域内生成若干个Actor，可以用于游戏刷怪之类的。
 

@@ -9,7 +9,9 @@ catalog: true
 tags:
     - UE4 C++入门系列
 ---
-<iframe src="//player.bilibili.com/player.html?aid=883120949&bvid=BV1LK4y187mh&cid=186843564&page=1" width="720" height="480" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="//player.bilibili.com/player.html?aid=883120949&bvid=BV1LK4y187mh&cid=186843564&page=1" width="720" height="480" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe><br>
+
+
 今天要做的是一个玩家拾取武器并装备到身上的效果
 
 ## 武器item
@@ -92,6 +94,11 @@ void AWeapon::Equip(AMan * Man)
 	}
 }
 ```
+### WeaponSocket插槽设置
+打开我们的角色蓝图Man_BP，details-->Mesh-->Skeletal Mesh查看骨骼网格体-->点击skleton-->选中右手hanf_r添加插槽addSocket
+![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/img/UE4/UE4_C++/WeaponSocket.png?raw=true)
+将插槽命名为WeaponSocket，这里必须和上面函数使用的名称一致，然后添加预览资源，可以看出加了武器的样子，然后对其进行微调即可
+![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/img/UE4/UE4_C++/PreviewAsset.png?raw=true)
 ### Item父类中旋转设置
 其中Rotate参数在Item父类中进行的初始化
 Item.h中设置是否旋转、旋转速度和旋转函数

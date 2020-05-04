@@ -2,14 +2,14 @@
 layout:     post
 title:      拾取武器
 subtitle:   基础内容
-date:       2020-5-1
+date:       2020-5-4
 author:     AIaimuti
 header-img: img/post-bg-open-source-blog.jpg
 catalog: true
 tags:
     - UE4 C++入门系列
 ---
-
+<iframe src="//player.bilibili.com/player.html?aid=883120949&bvid=BV1LK4y187mh&cid=186843564&page=1" width="720" height="480" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 今天要做的是一个玩家拾取武器并装备到身上的效果
 
 ## 武器item
@@ -34,7 +34,7 @@ public:
 
 ### 武器item函数实现
 添加头文件<br>
-#include "Components/SkeletalMeshComponent.h"<br><br>
+#include "Components/SkeletalMeshComponent.h"<br>
 #include "Components/StaticMeshComponent.h"<br>
 #include "Components/SphereComponent.h"<br>
 #include "Engine/SkeletalMeshSocket.h"<br>
@@ -49,7 +49,12 @@ AWeapon::AWeapon()
 	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(MeshComp);
 }
-
+```
+触发时调用Equip函数；<br>
+将武器碰撞、模拟物理关闭；<br>
+将武器附着在人物骨骼网格体上的WeaponSocket插槽上，这个插槽我们放在右手上；<br>
+然后关闭物体的旋转，粒子特效以及触发函数，避免出现一直调用触发函数功能的情况；
+```
 void AWeapon::OnOverlapBegin_Item(UPrimitiveComponent * OverlappedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
 	Super::OnOverlapBegin_Item(OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
@@ -85,5 +90,52 @@ void AWeapon::Equip(AMan * Man)
 		//关闭碰撞触发函数，避免一直调用触发函数功能
 		SphereComp->OnComponentBeginOverlap.RemoveDynamic(this, &AItem::OnOverlapBegin_Item);
 	}
+}
+```
+### Item父类中旋转设置
+其中Rotate参数在Item父类中进行的初始化
+Item.h中设置是否旋转、旋转速度和旋转函数
+```
+	//是否旋转
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Rotate")
+	bool Rotate;
+	//旋转速度
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Rotate")
+	float RotationSpeed;
+	//旋转函数
+UFUNCTION()
+	void Rotation(float DeltaTime);
+```
+Item.cpp中
+首先初始化旋转参数
+```
+AItem::AItem()
+{
+///////////////这里省略了其它设置///////////////////
+	//初始化旋转参数
+	Rotate = true;
+	RotationSpeed = 30;
+}
+```
+然后实现旋转函数，并在Tick函数中调用
+```
+void AItem::Rotation(float DeltaTime)
+{
+	if (Rotate)
+	{	//获取物体旋转
+		FRotator Rotation = MeshComp->GetComponentRotation();
+		//计算每帧增加的旋转角度
+		Rotation.Yaw += DeltaTime * RotationSpeed;
+		//对静态网格体进行旋转设置
+		MeshComp->SetWorldRotation(Rotation);
+	}
+}
+
+// Called every frame
+void AItem::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	Rotation(DeltaTime);
+
 }
 ```

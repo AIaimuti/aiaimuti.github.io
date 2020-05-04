@@ -9,9 +9,11 @@ catalog: true
 tags:
     - UE4 C++入门系列
 ---
+<iframe src="//player.bilibili.com/player.html?aid=838099807&bvid=BV12g4y1q7o4&cid=187043772&page=1" width="720" height="480" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+今天要做的是一个机关门，踩到地上机关，门开启，且可以延时关闭
 
 ## 自动门
-**功能需求：**踩到地上机关，门开启，且延时关闭
 ### 触发盒子及机关声明
 
 ```

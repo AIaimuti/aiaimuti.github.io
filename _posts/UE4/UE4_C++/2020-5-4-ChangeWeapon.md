@@ -64,7 +64,7 @@ void AMan::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 }
 ```
 SetWeapon则是用来装备和替换武器，EquiqedWeapon来记录当前持有的武器信息；<br>
-拾取时如果有武器，则销毁当前武器，放入新的武器，这是物体自身去调用的
+拾取时如果有武器，则销毁当前武器，放入新的武器，这是武器自身去调用的
 ```
 void AMan::SetWeapon(AWeapon * Weapon)
 {
@@ -102,7 +102,7 @@ Weapon.cpp添加头文件：<br>
 这里首先修改了OnOverlapBegin_Item函数；<br>
 当拿到主角实例时，先对ActiveOverlapItem进行一些逻辑处理；<br>
 ActiveOverlapItem是一个指向待拾取武器的指针，但当同时接触多个武器时ActiveOverlapItem会有一些混乱；<br>
-因此，在这里当还没有遇到待拾取武器时，先让ActiveOverlapItem指向遇到的第一个武器；<br>
+因此，在这里当遇到待拾取武器时，先让ActiveOverlapItem指向遇到的第一个武器；<br>
 这样使逻辑简化，再接触其它物体时会忽略，这样就只能捡起一把碰到的武器<br>
 
 然后使用了TArray类，TArray是UE4的一个数组模版；<br>
@@ -123,7 +123,7 @@ void AWeapon::OnOverlapBegin_Item(UPrimitiveComponent * OverlappedComponent, AAc
 			//这里首先修改了OnOverlapBegin_Item函数；
 			//当拿到主角实例时，先对ActiveOverlapItem进行一些逻辑处理；
 			//ActiveOverlapItem是一个指向待拾取武器的指针，但当同时接触多个武器时ActiveOverlapItem会有一些混乱；
-			//因此，在这里当还没有遇到待拾取武器时，先让ActiveOverlapItem指向Man自身的武器；
+			//因此，在这里当遇到待拾取武器时，先让ActiveOverlapItem指向Man自身的武器；
 			//这样使逻辑简化，再接触其它物体时会忽略，这样就只能捡起一把碰到的武器
 			if (Man->ActiveOverlapItem == nullptr)
 			{
@@ -143,8 +143,10 @@ void AWeapon::OnOverlapBegin_Item(UPrimitiveComponent * OverlappedComponent, AAc
 	}
 }
 ```
-这里也有问题，当我们同时接触两个物体时，离开了第一个物体但没离开第二个物体时，
-ActiveOverlapItem也会为空，这会导致第二个物体捡不到
+当离开第一个释放ActiveOverlapItem指针，使其为空;<br>
+这里也有问题，当我们同时接触两个物体时，离开了第一个物体但没离开第二个物体时，<br>
+ActiveOverlapItem也会为空，这会导致第二个物体捡不到;<br>
+这里为了使逻辑简单，先这样写
 ```
 void AWeapon::OnOverlapEnd_Item(UPrimitiveComponent * OverlappedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex)
 {
@@ -158,10 +160,16 @@ void AWeapon::OnOverlapEnd_Item(UPrimitiveComponent * OverlappedComponent, AActo
 		{
 			Man->ActiveOverlapItem = nullptr;
 		}
+		//消除屏幕上的文字
 		GEngine->ClearOnScreenDebugMessages();
 	}
 }
+```
+装备函数，将武器对于所有通道的碰撞设置为忽略并关闭模拟物理
+这里较上一次添加了解绑定碰撞触发离开函数，避免一直调用触发函数功能
+然后播放装备声音，设置武器
 
+```
 void AWeapon::Equip(AMan * Man)
 {
 	if (Man)
@@ -194,3 +202,6 @@ void AWeapon::Equip(AMan * Man)
 	}
 }
 ```
+整体思路就是主角碰到武器，把武器用ActiveOverlapItem临时记下，<br>
+如果按E则调用OnInteract函数与Weapon互动，调用Weapon的Equip函数；<br>
+Equip函数调用主角的SetWeapon函数，告诉主角自己被装备了，记录下当前装备的武器。

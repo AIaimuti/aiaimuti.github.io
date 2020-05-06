@@ -9,6 +9,7 @@ catalog: true
 tags:
     - UE4 C++入门系列
 ---
+<iframe src="//player.bilibili.com/player.html?aid=540566111&bvid=BV1Ci4y1x7Rv&cid=187934977&page=1"  width="720" height="480" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 状态机是UE4一个很好用的切换动画的工具，今天做的功能是在状态机里面再做一个状态机。<br>
 实现的功能就是装备着武器时，是一个动画；<br>

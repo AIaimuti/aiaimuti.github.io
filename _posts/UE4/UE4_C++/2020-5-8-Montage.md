@@ -10,6 +10,7 @@ tags:
     - UE4 C++入门系列
 ---
 
+<iframe src="//player.bilibili.com/player.html?aid=540566111&bvid=BV1Ci4y1x7Rv&cid=187934977&page=1" width="720" height="480" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 今天要实现的功能是按攻击键，随机播放不同攻击动画
 
 ## 蒙太奇动画

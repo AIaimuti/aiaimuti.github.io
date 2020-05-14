@@ -52,7 +52,8 @@ void UEnemyAnimInstance::NativeInitializeAnimation()
 	Enemy = Cast<AEnemy>(Pawn);
 }
 ```
-
+因为移动速度是一个我们需要用在状态机的变量，
+因此定义一个状态更新函数，实时
 ```
 void UEnemyAnimInstance::UpdateAnimationProperties()
 {
@@ -71,3 +72,5 @@ void UEnemyAnimInstance::UpdateAnimationProperties()
 	}
 }
 ```
+
+

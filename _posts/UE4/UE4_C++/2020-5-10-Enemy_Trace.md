@@ -9,6 +9,7 @@ catalog: true
 tags:
     - UE4 C++入门系列
 ---
+<iframe src="//player.bilibili.com/player.html?aid=370665697&bvid=BV1UZ4y1s7ij&cid=192623264&page=1"  width="720" height="480" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 今天做一个怪物追踪与攻击的功能
 
@@ -40,6 +41,7 @@ public:
 ```
 
 ### 敌人的动画实例函数
+这里和人物动画那里的配置是类似的<br>
 初始化函数中将动画实例的拥有者转换为Enemy
 ```
 void UEnemyAnimInstance::NativeInitializeAnimation()
@@ -52,8 +54,8 @@ void UEnemyAnimInstance::NativeInitializeAnimation()
 	Enemy = Cast<AEnemy>(Pawn);
 }
 ```
-因为移动速度是一个我们需要用在状态机的变量，
-因此定义一个状态更新函数，实时
+因为移动速度是一个我们需要用在状态机的变量，<br>
+因此定义一个状态更新函数，实时进行参数的更新和传递
 ```
 void UEnemyAnimInstance::UpdateAnimationProperties()
 {
@@ -73,4 +75,5 @@ void UEnemyAnimInstance::UpdateAnimationProperties()
 }
 ```
 
-
+### 敌人类
+有了敌人的动画类，然后我们需要一个敌人类去设定追踪目标以及攻击目标的各种条件

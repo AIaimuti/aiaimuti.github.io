@@ -76,4 +76,138 @@ void UEnemyAnimInstance::UpdateAnimationProperties()
 ```
 
 ### 敌人类
-有了敌人的动画类，然后我们需要一个敌人类去设定追踪目标以及攻击目标的各种条件
+有了敌人的动画类，然后我们需要一个敌人类去设定追踪目标以及攻击目标的各种条件<br>
+敌人的状态目前来说是分攻击、追踪和静止三个状态的，所以我们定义一个枚举变量表示状态<br>
+```
+//定义枚举类，三个敌人的状态
+UENUM(BlueprintType)
+enum class EMoveStatus :uint8
+{
+	//站立追逐和攻击状态
+	MS_Idle		  UMETA(DisplayName = "Idle"),
+	MS_MoveToTarget   UMETA(DisplayName = "MoveToTarget"),
+	MS_Attacking      UMETA(DisplayName = "Attacking")
+};
+```
+该枚举状态需要在类中声明<br>
+其攻击状态对应着其攻击范围、攻击目标以及开始和结束攻击的函数<br>
+同理，其追踪状态对应着其追踪范围、追踪目标以及追踪开始和结束的函数<br>
+另外，敌人是通过AI模块追踪的，所以也需要声明AI控制器以及追踪函数
+```
+public:
+	// Sets default values for this character's properties
+	AEnemy();
+	//声明敌人的侦查范围和攻击范围
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		class USphereComponent * DetectSphere;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		class USphereComponent * AttackSphere;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+		EMoveStatus MoveStatus;
+	//AI控制器，因为追踪玩家时需要导航
+	class AAIController *AIController;
+	//记录敌人追踪时的目标
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		class AMan * TargetMan;
+	//记录敌人攻击时的目标
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		class AMan * HittingMan;
+
+	//检测时的重合和离开函数
+	UFUNCTION()
+	virtual void OnDetectOverlapBegin(UPrimitiveComponent* OverlappedComponent,
+		AActor* OtherActor, UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex, bool bFromSweep,
+		const FHitResult & SweepResult);
+	UFUNCTION()
+	virtual void OnDetectOverlapEnd(UPrimitiveComponent* OverlappedComponent,
+		AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	//攻击时的重合和离开函数
+	UFUNCTION()
+		virtual void OnAttackOverlapBegin(UPrimitiveComponent* OverlappedComponent,
+			AActor* OtherActor, UPrimitiveComponent* OtherComp,
+			int32 OtherBodyIndex, bool bFromSweep,
+			const FHitResult & SweepResult);
+	UFUNCTION()
+		virtual void OnAttackOverlapEnd(UPrimitiveComponent* OverlappedComponent,
+			AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+	//向目标移动的函数
+	UFUNCTION(BlueprintCallable)
+		void MoveToTarget();
+```
+### 敌人类实现
+首先在初始化函数中对两个范围初始化
+```
+AEnemy::AEnemy()
+{
+ 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+	//侦测范围初始化
+	DetectSphere = CreateDefaultSubobject<USphereComponent>(TEXT("DetectSphere"));
+	DetectSphere->SetupAttachment(RootComponent);
+	DetectSphere->SetSphereRadius(600);
+	//攻击范围初始化
+	AttackSphere = CreateDefaultSubobject<USphereComponent>(TEXT("AttackSphere"));
+	AttackSphere->SetupAttachment(RootComponent);
+	AttackSphere->SetSphereRadius(300);
+
+}
+```
+然后设置追击开始函数,目前的追踪函数只追踪一个目标;<br>
+将进入范围Actor进行类型转换为Man，如果成功，则将Man设为TargetMan;<br>
+另外设置在攻击时不能追踪，如果没有在攻击状态，则将状态设置为追击，<br>
+然后调用追击函数，追击函数只在状态为追击时才有效
+```
+void AEnemy::OnDetectOverlapBegin(UPrimitiveComponent * OverlappedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	//如果没有追踪对象，则获取；有追踪对象则不执行，相当于只追踪一个目标
+	if (!TargetMan)
+	{
+		if (OtherActor)
+		{
+			AMan *Man = Cast<AMan>(OtherActor);
+			if (Man)
+			{
+				TargetMan = Man;
+				//攻击状态时播放动画的状态，在播放状态不可以追踪
+				if (MoveStatus != EMoveStatus::MS_Attacking)
+				{
+					//如果不是攻击状态，进行追击
+					MoveStatus = EMoveStatus::MS_MoveToTarget;
+				}
+				MoveToTarget();
+			}
+		}
+	}
+}
+```
+然后是离开追击范围的函数，这里的逻辑做了简化，并没有设置追踪第二个人；<br>
+如果离开范围的是追踪目标且没有攻击，则将状态设置为站立<br>
+并停止AI控制器的自动追踪
+```
+void AEnemy::OnDetectOverlapEnd(UPrimitiveComponent * OverlappedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex)
+{
+	if (OtherActor)
+	{
+		AMan *Man = Cast<AMan>(OtherActor);
+		//如果离开的对象是被追踪的对象
+		if (Man == TargetMan)
+		{
+			//清空被追踪的对象
+			TargetMan = nullptr;
+			if (MoveStatus != EMoveStatus::MS_Attacking)
+			{
+				//如果不是在攻击，就变成站立
+				MoveStatus = EMoveStatus::MS_Idle;
+			}
+			if (AIController)
+			{
+				//AI控制器停止追踪
+				AIController->StopMovement();
+			}
+		}
+	}
+}
+```

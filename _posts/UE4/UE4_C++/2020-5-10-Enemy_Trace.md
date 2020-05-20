@@ -211,3 +211,89 @@ void AEnemy::OnDetectOverlapEnd(UPrimitiveComponent * OverlappedComponent, AActo
 	}
 }
 ```
+攻击范围在追击范围之内，当进入攻击范围时，敌人状态进入攻击状态；<br>
+开始攻击时停止追击
+```
+void AEnemy::OnAttackOverlapBegin(UPrimitiveComponent * OverlappedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	//如果没有攻击对象，则获取；有追踪对象则不执行，相当于只追踪一个目标
+	if (!HittingMan)
+	{
+		if (OtherActor)
+		{	//如果没有攻击的目标，把当前进入范围的Pawn转化为HittingMan
+			AMan *Man = Cast<AMan>(OtherActor);
+			if (Man)
+			{
+				HittingMan = Man;
+				//如果有玩家则无条件得进入攻击状态
+				MoveStatus = EMoveStatus::MS_Attacking;
+				//开始攻击则停止追踪
+				if (AIController)
+				{
+					AIController->StopMovement();
+				}
+			}
+		}
+	}
+}
+```
+离开攻击范围时，主角会先进入追踪范围，因此将HittingMan赋值给TargetMan，HittingMan清空；<br>
+```
+void AEnemy::OnAttackOverlapEnd(UPrimitiveComponent * OverlappedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex)
+{
+	if (OtherActor)
+	{	
+		AMan *Man = Cast<AMan>(OtherActor);
+		if (Man == HittingMan)
+		{
+			//离开了攻击范围，把攻击者变成追踪者
+			//这里简单处理，不会从攻击状态停止就在攻击范围内找另一个玩家
+			TargetMan = HittingMan;
+			HittingMan = nullptr;
+		}
+
+	}
+
+
+}
+```
+然后是追踪时调用的函数MoveToTarget，当有TargetMan时调用AIController模块追踪，否则状态为站立<br>
+AIController调用MoveTo函数有两个关键参数，一个是移动请求，一个是路线；<br>
+
+```
+void AEnemy::MoveToTarget()
+{
+	if (TargetMan)
+	{
+		if (AIController)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("%s"), *FString(__FUNCTION__));
+			//设置AI移动请求
+			FAIMoveRequest MoveRequest;
+			//AI移动追踪的目标是TargetMan
+			MoveRequest.SetGoalActor(TargetMan);
+			//在TargetMan半径10范围内算是追到了
+			MoveRequest.SetAcceptanceRadius(10);
+
+			//追踪经过的路径,作为输出可以告诉我们，AI是用什么路径去追踪的
+			FNavPathSharedPtr NavPath;
+			//AI控制器，施加移动请求
+			AIController->MoveTo(MoveRequest, &NavPath);
+
+			//将路径上所有的点用球画出来
+#if 0
+			auto PathPoints = NavPath->GetPathPoints();
+			for (auto Point:PathPoints)
+			{
+				FVector Location = Point.Location;
+				UKismetSystemLibrary::DrawDebugSphere(this, Location);
+			}
+#endif
+		}
+	}
+	else
+	{
+		MoveStatus = EMoveStatus::MS_Idle;
+	}
+}
+```

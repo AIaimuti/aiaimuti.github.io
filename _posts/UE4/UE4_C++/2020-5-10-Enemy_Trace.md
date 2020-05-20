@@ -314,3 +314,10 @@ void AEnemy::BeginPlay()
 	AttackSphere->OnComponentEndOverlap.AddDynamic(this, &AEnemy::OnAttackOverlapEnd);
 }
 ```
+### 敌人动画
+代码部分完成后，需要对敌人类设置一个动画状态机，以敌人是否在攻击状态为变换条件；<br>
+idel/run中播放以速度变量为参考的1维混合动画；Attack中播放攻击动画<br>
+![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/img/UE4/UE4_C++/Enemy_State_Machine.png?raw=true)
+除此之外，程序里并没有攻击结束的逻辑，和之前一样，在程序中判断动画的结束比较困难;<br>
+因此在动画中添加一个结束事件，并在动画蓝图中以攻击结束写蓝图逻辑<br>
+![](https://github.com/AIaimuti/aiaimuti.github.io/blob/master/img/UE4/UE4_C++/Enemy_Event.png?raw=true)

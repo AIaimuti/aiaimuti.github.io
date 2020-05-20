@@ -259,7 +259,9 @@ void AEnemy::OnAttackOverlapEnd(UPrimitiveComponent * OverlappedComponent, AActo
 ```
 然后是追踪时调用的函数MoveToTarget，当有TargetMan时调用AIController模块追踪，否则状态为站立<br>
 AIController调用MoveTo函数有两个关键参数，一个是移动请求，一个是路线；<br>
-
+移动请求通过FAIMoveRequest定义，并设置追踪对象为TargetMan，且在TargetMan为圆心半径10范围内，判定为到达，<br>
+FNavPathSharedPtr定义追踪路线，配合追踪盒子使用，<br>
+需要在场景中设置追踪盒子的范围，且敌人在范围内才能追踪，通常追踪盒子下边缘要在地面之下才能完全包住敌人，敌人才能进行追踪<br>
 ```
 void AEnemy::MoveToTarget()
 {
@@ -295,5 +297,20 @@ void AEnemy::MoveToTarget()
 	{
 		MoveStatus = EMoveStatus::MS_Idle;
 	}
+}
+```
+BeginPlay中获取AAIController，并将AI追踪和触发开始结束的函数进行绑定
+```
+void AEnemy::BeginPlay()
+{
+	Super::BeginPlay();
+	//获取AI控制器
+	AIController = Cast<AAIController>(GetController());
+	//将AI追踪触发进行函数绑定
+	DetectSphere->OnComponentBeginOverlap.AddDynamic(this, &AEnemy::OnDetectOverlapBegin);
+	DetectSphere->OnComponentEndOverlap.AddDynamic(this, &AEnemy::OnDetectOverlapEnd);
+	//将AI攻击触发进行函数绑定
+	AttackSphere->OnComponentBeginOverlap.AddDynamic(this, &AEnemy::OnAttackOverlapBegin);
+	AttackSphere->OnComponentEndOverlap.AddDynamic(this, &AEnemy::OnAttackOverlapEnd);
 }
 ```
